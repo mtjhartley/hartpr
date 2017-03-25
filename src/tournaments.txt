@@ -1,0 +1,217 @@
+update_rankings_for_challonge_tournament("gcmelee1v1_010416")
+update_rankings_for_challonge_tournament("gcmelee1v1_011116")
+update_rankings_for_challonge_tournament("gcmelee1v1_020116")
+update_rankings_for_challonge_tournament("gcmelee1v1_020816")
+update_rankings_for_challonge_tournament("AlmondsAGod")
+update_rankings_for_challonge_tournament("gcmelee2v2_030716")
+update_rankings_for_challonge_tournament("gcmelee1v1_032116") #kpride kross
+update_rankings_for_challonge_tournament("gcmelee1v1040216")
+update_rankings_for_challonge_tournament("jcOnyxIsAGodtoo")
+update_rankings_for_challonge_tournament("gcmelee1v1_041816")
+update_rankings_for_challonge_tournament("gcmelee1v1_050216")
+update_rankings_for_challonge_tournament("AlmondsATO")
+update_rankings_for_challonge_tournament("gcmelee1v1_051616")
+update_rankings_for_challonge_tournament("AlmondsATO2")
+update_rankings_for_challonge_tournament("gcmelee1v1_060616")
+update_rankings_for_challonge_tournament("gcmelee1v1061116")
+update_rankings_for_challonge_tournament("gcmelee1v1_062016")
+update_rankings_for_challonge_tournament("gcmelee1v1_062716")
+update_rankings_for_challonge_tournament("gcm1v1070216")
+update_rankings_for_challonge_tournament("gcmelee1v1_071116")
+update_rankings_for_challonge_tournament("gcmelee1v1_071816")
+update_rankings_for_challonge_tournament("gcmelee1v1080616")
+update_rankings_for_challonge_tournament("gcmelee1v1_081516")
+update_rankings_for_challonge_tournament("gcmelee1v1_082916")
+update_rankings_for_challonge_tournament("pbpb8tu9")
+update_rankings_for_challonge_tournament("gcmelee1v1_091916")
+update_rankings_for_challonge_tournament("gcmelee1v1_092616")
+update_rankings_for_challonge_tournament("gcmelee1v1_100316")#bonerman69
+update_rankings_for_challonge_tournament("gcmelee1v1_101716")
+update_rankings_for_challonge_tournament("gcspookymelee1v1_103116")
+update_rankings_for_challonge_tournament("gcmelee1v1_110716")
+update_rankings_for_challonge_tournament("gcmelee1v1_111416")
+update_rankings_for_challonge_tournament("gcmelee1v1_120516")
+update_rankings_for_challonge_tournament("gcmelee1v1_121216")
+update_rankings_for_challonge_tournament("gcmelee1v1_121916")
+update_rankings_for_challonge_tournament("gcmelee1v1_122616")#correct dacky score vs bubsy #no ?
+update_rankings_for_challonge_tournament("gcmelee1v1_010217")
+update_rankings_for_challonge_tournament("gcmelee1v1_011617")
+update_rankings_for_challonge_tournament("gcmelee1v1_012317")
+#update_rankings_for_challonge_tournament("gcmelee1v1_013017")#unfinished
+update_rankings_for_challonge_tournament("gcmelee1v1_020617")
+update_rankings_for_challonge_tournament("gcmelee1v1_021317")
+update_rankings_for_challonge_tournament("gcmelee1v1_022017")
+#update_rankings_for_challonge_tournament("gcmelee1v1_022717") #unfinished
+update_rankings_for_challonge_tournament("gcmelee1v1_030617")
+
+"""
+#SGG Tournaments
+update_rankings_for_smashgg_tournament("reign-2", "melee-singles")
+update_rankings_for_smashgg_tournament("dairly-beloved", "melee-singles")
+update_rankings_for_smashgg_tournament("emerald-city-i", "melee-singles")
+update_rankings_for_smashgg_tournament("emerald-city-ii", "melee-singles")
+update_rankings_for_smashgg_tournament("tony-town-ii-swag-me-out", "melee-singles")
+update_rankings_for_smashgg_tournament("smash-for-smiles", "melee-singles")
+update_rankings_for_smashgg_tournament("emerald-city-iii", "melee-singles")
+update_rankings_for_smashgg_tournament("emerald-city-4", "melee-singles")
+update_rankings_for_smashgg_tournament("3rd-strike-n3xt-l3v3l", "melee-singles")
+update_rankings_for_smashgg_tournament("reign-emerald-city-monthly", "melee-singles")
+update_rankings_for_smashgg_tournament("uw-smash-presents-smash2o", "melee-singles")
+update_rankings_for_smashgg_tournament("tony-town-3rd-strike-knuckles", "melee-singles")
+update_rankings_for_smashgg_tournament("don-t-park-on-the-grass", "melee-singles")
+update_rankings_for_smashgg_tournament("finding-chip-ewa-regional", "melee-singles")
+update_rankings_for_smashgg_tournament("uw-smash-presents-warcadian", "melee-singles")
+update_rankings_for_smashgg_tournament("don-t-park-on-the-grass", "melee-singles")
+"""
+
+"""
+#Tukhouse tournaments
+update_rankings_for_challonge_tournament("TukBracketRR02")
+update_rankings_for_challonge_tournament("Tukjuly1")
+update_rankings_for_challonge_tournament("tukjuly8")
+update_rankings_for_challonge_tournament("tukjuly15")
+update_rankings_for_challonge_tournament("tukjuly22")
+update_rankings_for_challonge_tournament("Tukjuly29")
+update_rankings_for_challonge_tournament("Tulaug5")
+update_rankings_for_challonge_tournament("Tukaug12")
+update_rankings_for_challonge_tournament("Tukaug19")
+update_rankings_for_challonge_tournament("Tukaug26")
+update_rankings_for_challonge_tournament("tuk99")
+update_rankings_for_challonge_tournament("Tuk916")
+update_rankings_for_challonge_tournament("Tuk923")
+update_rankings_for_challonge_tournament("tukoct")
+update_rankings_for_challonge_tournament("tuk1014")
+update_rankings_for_challonge_tournament("Tuk1021")
+update_rankings_for_challonge_tournament("tuk1028")
+update_rankings_for_challonge_tournament("Tuk114")
+update_rankings_for_challonge_tournament("tuk1111")
+update_rankings_for_challonge_tournament("tuk1118")
+update_rankings_for_challonge_tournament("tukbf")
+update_rankings_for_challonge_tournament("tuk122")
+update_rankings_for_challonge_tournament("tuk123")
+update_rankings_for_challonge_tournament("tuk129")
+update_rankings_for_challonge_tournament("tuk1213")
+update_rankings_for_challonge_tournament("tuk1214")
+update_rankings_for_challonge_tournament("Tuk1215")
+update_rankings_for_challonge_tournament("tuk1216")
+update_rankings_for_challonge_tournament("tuk1221")
+update_rankings_for_challonge_tournament("tuk1223")
+update_rankings_for_challonge_tournament("tuk1230")
+update_rankings_for_challonge_tournament("tuk16")
+update_rankings_for_challonge_tournament("tuk113")
+update_rankings_for_challonge_tournament("tuk127")
+update_rankings_for_challonge_tournament("tuk23")
+update_rankings_for_challonge_tournament("tuk210")
+update_rankings_for_challonge_tournament("Tuk217")
+update_rankings_for_challonge_tournament("tuk224")
+update_rankings_for_challonge_tournament("Tuk33")
+update_rankings_for_challonge_tournament("tuk310")
+update_rankings_for_challonge_tournament("ETBsingles")
+update_rankings_for_challonge_tournament("TukMeleeSept2")
+#update_rankings_for_challonge_tournament("tuk317")
+"""
+"""
+#ESS Tournaments
+update_rankings_for_challonge_tournament("ESSM7M")
+update_rankings_for_challonge_tournament("ESS50M")
+#update_rankings_for_challonge_tournament("ESS51M") #unfinished
+update_rankings_for_challonge_tournament("ESS52M")
+update_rankings_for_challonge_tournament("ESSM8M")
+update_rankings_for_challonge_tournament("ESS55M")
+update_rankings_for_challonge_tournament("ess56m")
+update_rankings_for_challonge_tournament("ESS58M")
+"""
+
+"""
+#Toby(souf)Tournaments
+update_rankings_for_challonge_tournament("lasttobytourney")
+update_rankings_for_challonge_tournament("Tobathorfest")
+update_rankings_for_challonge_tournament("tobyfest1")
+update_rankings_for_challonge_tournament("Tobyfest")
+update_rankings_for_challonge_tournament("tobathor1")
+"""
+
+"""
+#challonge.com/users/gameworks
+update_rankings_for_challonge_tournament("SSBMS123")
+update_rankings_for_challonge_tournament("SmashWorksMeleeSingles1")
+update_rankings_for_challonge_tournament("SmashworksXMS")
+update_rankings_for_challonge_tournament("SMSMSingles")
+"""
+
+#smasherino
+"""
+update_rankings_for_challonge_tournament("Smasherino1")
+"""
+
+#bnb
+"""
+#update_rankings_for_challonge_tournament("bracketsnbrewsmelee01132015") #unfinished
+update_rankings_for_challonge_tournament("bracketsnbrewsmelee01202016")
+update_rankings_for_challonge_tournament("bracketsnbrewsmelee01272016")
+update_rankings_for_challonge_tournament("Bracketsnbrewsmelee02032016")
+update_rankings_for_challonge_tournament("bracketsnbrews22melee")
+update_rankings_for_challonge_tournament("bracketsnbrews23melee")
+update_rankings_for_challonge_tournament("bracketsnbrews24melee")
+update_rankings_for_challonge_tournament("bracketsnbrews25melee")
+update_rankings_for_challonge_tournament("bracketsnbrews26melee")
+update_rankings_for_challonge_tournament("bracketsnbrews27melee")
+update_rankings_for_challonge_tournament("bracketsnbrews28melee")
+update_rankings_for_challonge_tournament("bracketsnbrews29melee")
+update_rankings_for_challonge_tournament("bracketsnbrews30melee")
+update_rankings_for_challonge_tournament("bracketsnbrews31melee")
+update_rankings_for_challonge_tournament("bracketsnbrews32melee")
+update_rankings_for_challonge_tournament("bracketsnbrews34melee")
+update_rankings_for_challonge_tournament("bracketsnbrews35melee")
+update_rankings_for_challonge_tournament("bracketsnbrews36melee")
+update_rankings_for_challonge_tournament("bracketsnbrews37meleesingles")
+update_rankings_for_challonge_tournament("bracketsnbrews38melee")
+update_rankings_for_challonge_tournament("bracketsnbrews39melee")
+update_rankings_for_challonge_tournament("bracketsnbrews40melee")
+update_rankings_for_challonge_tournament("bracketsnbrews41melee")
+update_rankings_for_challonge_tournament("bracketsnbrews42melee")
+update_rankings_for_challonge_tournament("bracketsnbrews43melee")
+update_rankings_for_challonge_tournament("bracketsnbrews44melee")
+update_rankings_for_challonge_tournament("bracketsnbrews45melee")
+update_rankings_for_challonge_tournament("fundungeon1melee")
+update_rankings_for_challonge_tournament("bracketsnbrews46melee")
+update_rankings_for_challonge_tournament("bracketsnbrews47melee")
+update_rankings_for_challonge_tournament("bracketsnbrews48melee")
+update_rankings_for_challonge_tournament("bracketsnbrews50melee")
+update_rankings_for_challonge_tournament("bracketsnbrews51melee")
+update_rankings_for_challonge_tournament("bracketsnbrews52melee")
+update_rankings_for_challonge_tournament("bracketsnbrews53melee") #-co tournament...
+update_rankings_for_challonge_tournament("bracketsnbrews54melee")
+#update_rankings_for_challonge_tournament("bracketsnbrews55melee") #who teh fuck is the winner
+#update_rankings_for_challonge_tournament("bracketsnbrews56melee") #unfinished lol
+#update_rankings_for_challonge_tournament("bracketsnbrews57melee") #unfinished
+update_rankings_for_challonge_tournament("bracketsnbrews58melee")
+update_rankings_for_challonge_tournament("bracketsnbrews59melee")
+update_rankings_for_challonge_tournament("bracketsnbrews60melee")
+update_rankings_for_challonge_tournament("bracketsnbrews61melee")
+#update_rankings_for_challonge_tournament("bracketsnbrews62melee") #unfinished
+update_rankings_for_challonge_tournament("bracketsnbrews63melee")
+update_rankings_for_challonge_tournament("bracketsnbrews64melee")
+update_rankings_for_challonge_tournament("bracketsnbrews65melee")
+update_rankings_for_challonge_tournament("bracketsnbrews66melee")
+update_rankings_for_challonge_tournament("bracketsnbrews67melee") # wtf retarded name
+update_rankings_for_challonge_tournament("bracketsnbrews68melee")
+update_rankings_for_challonge_tournament("bracketsnbrews70melee")
+update_rankings_for_challonge_tournament("bracketsnbrews71melee")
+update_rankings_for_challonge_tournament("bracketsnbrews72melee")
+update_rankings_for_challonge_tournament("bracketsnbrews73melee")
+update_rankings_for_challonge_tournament("bracketsnbrews74melee")
+update_rankings_for_challonge_tournament("bracketsnbrews75melee")
+update_rankings_for_challonge_tournament("bracketsnbrews76melee")
+update_rankings_for_challonge_tournament("bracketsnbrews77melee")
+#update_rankings_for_challonge_tournament("bracketsnbrews79melee")
+
+"""
+#update_rankings_for_challonge_tournament("wd3bklcm", subdomain = "epeengaming")
+
+#epg_tournies = map(lambda string: string.lower(), [u'7axbtknh', u'pt24t3lt', u'sbpojq5q', u'gng46rgx', u'4nyhfvgk', u'yquxmjnc', u'g8g5t2ia', u'jwhhynla', u'ri0ceuet', u'ng3u7m7b', u'r76b3ih9', u'mqts8a85', u'q1zy3xig', u'9h5s4ncy', u'znlz0p20', u'gj6gkiya', u'sc6c1z5x', u'27wd78yr', u'5ew0k55a', u'o1iv6je2', u'ua1bwzri', u'2qdgyp62', u'jgyjswwe', u'utifpbsl', u'7wl9stbe', u'eavsl3i5', u'ih36y0xj', u'b56mvu2z', u'be3ypvqt', u'7zut7gno', u'sw1xts22'])
+
+#gameworks_tournies = map(lambda string: string.lower(), [u'SWPMT32', u'Smashworks4MeleeSingles', u'SW3MS', u'SmashWorks2MeleeSingles', u'GWSSBM227S'])
+
+"""for tourney in gameworks_tournies:
+	update_rankings_for_challonge_tournament(tourney, "gameworksseattle")

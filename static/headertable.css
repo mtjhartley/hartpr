@@ -1,0 +1,245 @@
+body {
+    background-color: snow;
+}
+
+#logo {
+    text-decoration: none;
+    text-decoration-color: none;
+    text-decoration-style: none;
+    color: forestgreen;
+}
+#logo:hover,
+#logo:focus {
+
+}
+
+.header{
+    text-align: center;
+    width: 100%;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 72px;
+    letter-spacing: 5px;
+    height: 140px;
+    color: green;
+    border-bottom: 1px solid #666;
+}
+
+#grad {
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(circle, silver, gray); /* Safari */
+  background: -o-radial-gradient(circle, silver, gray); /* Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(circle, silver, gray); /* Firefox 3.6 to 15 */
+  background: radial-gradient(circle, silver, gray); /* Standard syntax */
+}
+
+#title {
+    color: snow;
+}
+span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  padding: 10px 10px 10px 10px;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/* This of course assumes you're using .navbar-inverse */
+
+
+
+/* Navbar title */
+
+.navbar.navbar-inverse {
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.navbar.navbar-static-top {
+    border-bottom: 1px solid #666;
+}
+.navbar.navbar-inverse .navbar-collapse {
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.right_most {
+    padding-right: 5px;
+}
+.navbar-inverse .navbar-brand {
+    color: snow;
+}
+
+/* Focus/hover state for navbar title */
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+    color: white;
+}
+
+/* Navbar links default color */
+
+.navbar-inverse .navbar-nav > li > a {
+    color: snow;
+}
+
+/* Navbar links hover/focus states */
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: white;
+    
+}
+
+/* Active link colors */
+
+.navbar-inverse .navbar-nav > .active > a, 
+.navbar-inverse .navbar-nav > .active > a:hover, 
+.navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: #E7E7E7;
+    text-shadow:0px 0px 1px black;
+}
+
+
+/* Mobile toggle button */
+
+.navbar-inverse .navbar-toggle {
+    border-color: lightgreen;
+}
+
+/* Mobile toggle button hover/focus states */
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #DDD;
+    font-weight: bold;
+}
+
+/* Mobile icon bar colors */
+
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #CCC;
+}
+/* Navbar main background */
+.container-fluid {
+    background-color: #228b22;
+    border-bottom: 0px;
+}
+/* #9BCD9B #B4EEB4 90EE90 ccffcc best*/
+
+
+#active {
+    background-color: #175e17;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.table_header {
+    border-bottom: 2px solid #000000
+}
+
+#last_update {
+    position: relative;
+    padding-left: 16px;
+    padding-right: 15px;
+}
+
+.left_align {
+    position: relative;
+    padding-left: 16px;
+    padding-right: 15px;
+}
+
+#up_align {
+    padding-top: 20px;
+}
+.table-striped {
+    border: 20px;
+    border-color: white;
+}
+
+th {
+    background-color: #228B22 !important;
+    color: #FFFAFA;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+   background-color: #E8f2eb; //background-color: green;
+}
+
+
+}
+.h2h {
+    list-style-type: none;
+    float: left;
+
+}
+
+#h2h_table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.player_history {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.player_history_object {
+    float: left;
+}
+
+.within_h2h {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    float: left;
+    width: 33%;
+    text-align: center;
+}
+.resizedTextbox {
+    width:800px; 
+    height: 100px;
+}
+
+#submit_button {
+    display: block;
+
+}
+
+.form-group {
+    background-color: snow;
+}
+
+#login_box {
+    background-color: transparent;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    color: black;
+}
+
+.navbar-inverse .navbar-nav>.open>a, 
+.navbar-inverse .navbar-nav>.open>a:focus, 
+.navbar-inverse .navbar-nav>.open>a:hover {
+    background-color: #175e17;
+
+}
+
+#btnLogin {
+    margin-top: 10px;
+    margin-left: 70%;
+}
+
+.navbar-form .input-group>.form-control {
+    margin-left: 10px;
+}
+

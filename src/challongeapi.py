@@ -10,7 +10,10 @@ import json
 import os
 
 def set_credentials(user):
-	challonge.set_credentials(user, os.environ.get(user, json.loads(open("credentials.json").read())[user]))
+	if os.environ.has_key(user):
+		challonge.set_credentials(user, os.environ[user])
+	else:
+		challonge.set_credentials(user, json.loads(open("credentials.json").read())[user])
 
 set_credentials("hartlax")
 set_credentials("gameworksseattle")

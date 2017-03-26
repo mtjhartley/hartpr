@@ -6,3 +6,4 @@ sgg\ test\ ideas/
 src/jerky.txt
 src/idea\ 1.txt
 src/credentials.py
+*.sql

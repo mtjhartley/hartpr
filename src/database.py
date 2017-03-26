@@ -1,4 +1,4 @@
-import sqlite3
+import psycopg2
 import smashggapi
 import trueskillapi
 import pysmash
@@ -8,7 +8,7 @@ db = None
 def get_db():
 	global db
 	if db == None:
-		db = sqlite3.connect("db/finaltestdb.db") #../db/finaltestdb.db when need to update...
+		db = psycopg2.connect("dbname=hartprdb user=postgres password=password") #../db/finaltestdb.db when need to update...
 	return db
 
 def queryMany(q, args=None):
@@ -16,9 +16,9 @@ def queryMany(q, args=None):
 	cur = db.cursor()
 
 	if (args == None):
-		cur.execute(q)
+		cur.execute(q.replace("?", "%s"))
 	else:
-		cur.execute(q, args)
+		cur.execute(q.replace("?", "%s"), args)
 
 	db.commit()
 	return cur.fetchall()
@@ -28,9 +28,9 @@ def queryOne(q, args=None):
 	cur = db.cursor()
 
 	if (args == None):
-		cur.execute(q)
+		cur.execute(q.replace("?", "%s"))
 	else:
-		cur.execute(q, args)
+		cur.execute(q.replace("?", "%s"), args)
 
 	db.commit()
 	return cur.fetchone()
@@ -40,9 +40,9 @@ def queryInsert(q, args=None):
 	cur = db.cursor()
 
 	if (args == None):
-		cur.execute(q)
+		cur.execute(q.replace("?", "%s"))
 	else:
-		cur.execute(q, args)
+		cur.execute(q.replace("?", "%s"), args)
 
 	db.commit()
 	return cur.lastrowid

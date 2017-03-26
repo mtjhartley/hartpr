@@ -21,7 +21,7 @@ def index():
 	for row in rows:
 		count += 1
 		display_tag, weighted_trueskill, player_id = row[1], row[2], row[3]
-		player_tuple = (count, display_tag, weighted_trueskill, player_id)
+		player_tuple = (count, display_tag.decode('utf-8', 'ignore'), weighted_trueskill, player_id)
 
 		playerRankingDictionary["players"].append(player_tuple)
 
@@ -77,14 +77,14 @@ def player(player_id):
 	for row in rows:
 		tournament_name = row[0]
 		if row[3] == player_id:
-			opponent_tag = row[8]
+			opponent_tag = row[8].decode('utf-8', 'ignore')
 			opponent_id = row[4]
 			result = "W"
 			winner_score = row[12]
 			loser_score = row[13]
 		else:
 			opponent_id = row[3]
-			opponent_tag = row[7]
+			opponent_tag = row[7].decode('utf-8', 'ignore')
 			result = "L"
 			loser_score = row[12]
 			winner_score = row[13]
@@ -103,7 +103,7 @@ def player(player_id):
 	setsDictionary["mu"] = round(mu, 3)
 	setsDictionary["sigma"] = round(sigma, 3)
 	setsDictionary["weighted_trueskill"] = round(weighted_trueskill, 3)
-	setsDictionary["display_name"] = row[3]
+	setsDictionary["display_name"] = row[3].decode('utf-8', 'ignore')
 
 	return render_template("player.j2", **setsDictionary).encode("utf-8")
 
@@ -169,8 +169,8 @@ def tournamentPage(tournament_id):
 				WHERE db_tournament_id=?""", (tournament_id,))
 	player_list = []
 	for row in rows:
-		winner_tag = row[0]
-		loser_tag = row[1]
+		winner_tag = row[0].decode('utf-8', 'ignore')
+		loser_tag = row[1].decode('utf-8', 'ignore')
 		winner_id = row[2]
 		loser_id = row[3]
 		winner = (winner_tag, winner_id)
@@ -217,7 +217,7 @@ def searchh2h(message=None):
 	playersDictionary["players"] = []
 	rows = db.queryMany("""SELECT display_tag FROM players""")
 	for row in rows:
-		playersDictionary["players"].append(row[0])
+		playersDictionary["players"].append(row[0].decode('utf-8', 'ignore'))
 		playersDictionary["players"].sort(key = lambda s: s[0].lower())
 	return render_template("searchh2h.j2", **playersDictionary).encode("utf-8")
 
@@ -265,8 +265,8 @@ def returnh2h():
 				tournament_date = row[2]
 				winner_id = row[3]
 				loser_id = row[4]
-				winner_display_tag = row[7]
-				loser_display_tag = row[8]
+				winner_display_tag = row[7].decode('utf-8', 'ignore')
+				loser_display_tag = row[8].decode('utf-8', 'ignore')
 				if (row[12] == None or row[13] == None):
 					score_string = "Not Reported"
 				else:

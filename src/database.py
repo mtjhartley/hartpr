@@ -27,41 +27,30 @@ def get_db():
 			db = psycopg2.connect("dbname=hartprdb user=postgres password=password") #../db/finaltestdb.db when need to update...
 	return db
 
-def queryMany(q, args=None):
+def do_db(q, args):
 	db = get_db()
 	cur = db.cursor()
 
-	if (args == None):
-		cur.execute(q.replace("?", "%s"))
-	else:
-		cur.execute(q.replace("?", "%s"), args)
+	try:
+		if (args == None):
+			cur.execute(q.replace("?", "%s"))
+		else:
+			cur.execute(q.replace("?", "%s"), args)
+	except e:
+		db.rollback()
+		raise e
 
 	db.commit()
-	return cur.fetchall()
+	return cur
+
+def queryMany(q, args=None):
+	return do_db(q, args).fetchall()
 
 def queryOne(q, args=None):
-	db = get_db()
-	cur = db.cursor()
-
-	if (args == None):
-		cur.execute(q.replace("?", "%s"))
-	else:
-		cur.execute(q.replace("?", "%s"), args)
-
-	db.commit()
-	return cur.fetchone()
+	return do_db(q, args).fetchone()
 
 def queryInsert(q, args=None):
-	db = get_db()
-	cur = db.cursor()
-
-	if (args == None):
-		cur.execute(q.replace("?", "%s"))
-	else:
-		cur.execute(q.replace("?", "%s"), args)
-
-	db.commit()
-	return cur.lastrowid
+	return do_db(q, args).lastrowid
 
 def get_all_sponsors():
 	sponsors = []

@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, request, s
 import src.database as db
 from time import time
 import datetime
+import os
 
 app = Flask(__name__)
 
@@ -341,7 +342,7 @@ def inject_time():
 
 
 if __name__ == "__main__":
-	app.run()
+	app.run(port=os.environ.get("PORT", 5000))
 
 
 

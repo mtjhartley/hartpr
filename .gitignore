@@ -5,5 +5,5 @@ sgg\ test\ ideas/
 *.pyo
 src/jerky.txt
 src/idea\ 1.txt
-src/credentials.py
+credentials.json
 *.sql

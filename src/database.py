@@ -3,12 +3,28 @@ import smashggapi
 import trueskillapi
 import pysmash
 import challongeapi
+import os
+import urlparse
+
+urlparse.uses_netloc.append("postgres")
+url = None
+if os.environ.get("DATABASE_URL", None):
+	url = urlparse.urlparse(os.environ["DATABASE_URL"])
 
 db = None
 def get_db():
 	global db
 	if db == None:
-		db = psycopg2.connect("dbname=hartprdb user=postgres password=password") #../db/finaltestdb.db when need to update...
+		if url:
+			db = psycopg2.connect(
+			    database=url.path[1:],
+			    user=url.username,
+			    password=url.password,
+			    host=url.hostname,
+			    port=url.port
+			)
+		else:
+			db = psycopg2.connect("dbname=hartprdb user=postgres password=password") #../db/finaltestdb.db when need to update...
 	return db
 
 def queryMany(q, args=None):

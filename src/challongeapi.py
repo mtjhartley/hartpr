@@ -6,11 +6,15 @@ import sqlite3
 import sys
 import datetime
 import re
-import credentials
+import json
+import os
 
-challonge.set_credentials("hartlax", credentials.hartlax)
-challonge.set_credentials("gameworksseattle", credentials.gameworksseattle)
-challonge.set_credentials("epeengaming", credentials.epeengaming)
+def set_credentials(user):
+	challonge.set_credentials(user, os.environ.get(user, json.loads(open("credentials.json").read())[user]))
+
+set_credentials("hartlax")
+set_credentials("gameworksseattle")
+set_credentials("epeengaming")
 
 def get_all_the_sets(tourneyURL):
 	list_of_sets = challonge.matches.index(tourneyURL)

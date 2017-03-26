@@ -36,7 +36,7 @@ def do_db(q, args):
 			cur.execute(q.replace("?", "%s"))
 		else:
 			cur.execute(q.replace("?", "%s"), args)
-	except e:
+	except Exception as e:
 		db.rollback()
 		raise e
 

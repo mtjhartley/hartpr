@@ -3,6 +3,8 @@ import trueskillapi
 import sqlite3
 import datetime
 import urllib, json
+import database
+
 
 
 smash = pysmash.SmashGG()
@@ -49,43 +51,34 @@ def update_entrant_id_to_player_id_dict_and_player_database(tourneyName, eventNa
 	#doesn't work with BRACKETS THAT HAVE NOBODY IN THEM
 	print "length of tourney players is ", len(tourney_players)
 	print "length of ditionarykeys is ", len(gamertag_to_sggplayerid_dict.keys())
-	con = sqlite3.connect("../db/finaltestdb.db")
-	with con:
-		cur = con.cursor()
-		new_list = []
-		for bracket_player in tourney_players:
-			entrant_id = (bracket_player["entrant_id"])
-			#print "type entrant_id", type(entrant_id) #unique to sgg
-			tag = bracket_player["tag"].lower()
 
-			tag_tuple = (tag,)
-			cur.execute("SELECT * FROM players WHERE tag=?", tag_tuple) #gotta do this to call it after we FUCKING create it u moron
-			#what if someone is changing their tag and we try and add them based on sgg id? we should call by sgg id! 
-			#probably using above gt to id dictionary. 
-			#NO BECAUSE THIS GETS THE MOST UPDATED TAG SWAGGG EVEN IF CHANGED AFTER TOURNEY
-			rows = cur.fetchall()
 
-			if (len(rows) < 1):
-				tag = (bracket_player["tag"].lower())
-				display_tag = (bracket_player["tag"])
-				fname = (bracket_player["fname"])
-				lname = (bracket_player["lname"])
-				location = str(bracket_player["state"])
-				trueskill_mu = trueskillapi.defaultRating.mu 
-				trueskill_sigma = trueskillapi.defaultRating.sigma 
-				sgg_player_id = gamertag_to_sggplayerid_dict[display_tag]
-				player_tuple = (tag, display_tag, fname, lname, location, trueskill_mu, trueskill_sigma, sgg_player_id)
-				print player_tuple
-				cur.execute("INSERT INTO players(tag, display_tag, fname, lname, location, trueskill_mu, trueskill_sigma, sgg_player_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", player_tuple)
-				entrant_id_to_player_id_dict[entrant_id] = cur.lastrowid
+	for bracket_player in tourney_players:
+		entrant_id = (bracket_player["entrant_id"])
+		tag = bracket_player["tag"].lower()
+		tag_tuple = (tag,)
+		rows = database.queryMany("SELECT * FROM players WHERE tag=%s", tag_tuple)
+		
+		if (len(rows) < 1):
+			tag = (bracket_player["tag"].lower())
+			display_tag = (bracket_player["tag"])
+			fname = (bracket_player["fname"])
+			lname = (bracket_player["lname"])
+			location = str(bracket_player["state"])
+			trueskill_mu = trueskillapi.defaultRating.mu 
+			trueskill_sigma = trueskillapi.defaultRating.sigma 
+			sgg_player_id = gamertag_to_sggplayerid_dict[display_tag]
+			player_tuple = (tag, display_tag, fname, lname, location, trueskill_mu, trueskill_sigma, sgg_player_id)
+			cur = database.queryInsert("INSERT INTO players(tag, display_tag, fname, lname, location, trueskill_mu, trueskill_sigma, sgg_player_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;", player_tuple)
+			id_of_new_row = cur.fetchone()[0]
+			entrant_id_to_player_id_dict[entrant_id] = id_of_new_row
 
-			elif (len(rows) == 1):
-				entrant_id_to_player_id_dict[entrant_id] = rows[0][0]
+		elif (len(rows) == 1):
+			entrant_id_to_player_id_dict[entrant_id] = rows[0][0]
 
-			else:
-				print("Multiple Tags for tag: {}".format(tag_tuple))
+		else:
+			print("Multiple Tags for tag: {}".format(tag_tuple))
 
-	con.close()
 	return entrant_id_to_player_id_dict 
 
 
@@ -102,14 +95,8 @@ def update_sets_with_winner_and_loser_ids_using_a_list(entrant_id_to_player_id_d
 	return tournament_list_of_sets
 
 def create_list_of_set_data_in_tuple(tournament_info, updated_set_list):
-
 	list_of_set_data_in_tuples = []
-
-
-
-
 	for a_set in updated_set_list:
-
 		print "len all sets again above"
 		try:
 			database_winner_id = a_set["database_winner_id"]
@@ -148,26 +135,37 @@ def create_sgg_tourney_data_in_tuple(tournament_info):
 def create_trueskill_dictionary_for_tournament(tourneyName, eventName):
 	trueskillDictionary = {}
 	entrant_id_to_player_id_dict = update_entrant_id_to_player_id_dict_and_player_database(tourneyName, eventName)
-	print "Printing db_id"
-	con = sqlite3.connect("../db/finaltestdb.db")
-	with con:
-		cur = con.cursor()
-		for player in entrant_id_to_player_id_dict:
-			db_id = entrant_id_to_player_id_dict[player]
-			db_id_tuple = (db_id,)
-			cur.execute("SELECT trueskill_mu, trueskill_sigma FROM players WHERE id=?", db_id_tuple)
-			rows = cur.fetchone()
-			trueskill_list = []
-			for row in rows:
-				trueskill_list.append(row)
-			trueskillDictionary[db_id] = trueskill_list
-	con.close()
+
+	for player in entrant_id_to_player_id_dict:
+		db_id = entrant_id_to_player_id_dict[player]
+		db_id_tuple = (db_id,)
+		row = database.queryOne("SELECT trueskill_mu, trueskill_sigma FROM players WHERE id=?", db_id_tuple)
+		trueskill_list = []
+		trueskill_list.append(row)
+		trueskillDictionary[db_id] = trueskill_list
 	return trueskillDictionary
 
+def update_rankings_for_smashgg_tournament(tourneyName, bracketName):
+	tournament_info = smash.tournament_show_with_brackets(tourneyName, bracketName)
+	list_of_all_sets = get_all_the_sets(tourneyName, bracketName)
+	gamertag_to_sggplayerid_dict = create_gamertag_to_sggplayerid_dict(tourneyName)
+	entrant_id_to_player_id_dict = update_entrant_id_to_player_id_dict_and_player_database(tourneyName, bracketName, gamertag_to_sggplayerid_dict)
+	all_sets_updated_list = update_sets_with_winner_and_loser_ids_using_a_list(entrant_id_to_player_id_dict, list_of_all_sets)
+	all_sets = [one_set for one_pool in all_sets_updated_list for one_set in one_pool]
+	list_of_set_data_in_tuple = create_list_of_set_data_in_tuple(tournament_info, all_sets)
+	sgg_tournament_data_tuple = create_sgg_tourney_data_in_tuple(tournament_info)
+	boole = database.update_database_with_tournament_information(sgg_tournament_data_tuple)
+	if boole:
+		database.update_database_with_set_information(list_of_set_data_in_tuple)
+		trueskillDictionary = database.create_trueskill_dictionary_for_tournament(entrant_id_to_player_id_dict)
+		trueskillapi.update_trueskills(list_of_set_data_in_tuple, trueskillDictionary)
+		database.update_player_database_with_new_trueskill(trueskillDictionary)
+		print "Update complete!"
+	else:
+		print "Tournament already in the database."
 
 
-
-
+update_rankings_for_smashgg_tournament("doubling-down-n3xt-l3v3l", "melee-singles")
 
 
 

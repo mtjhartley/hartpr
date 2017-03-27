@@ -22,8 +22,8 @@ or just leave it "updated, guess it depends on how we write the update database 
 
 def update_trueskills(finalized_set_tuples, trueskillDictionary):
 	for player in trueskillDictionary:
-		old_trueskill_mu = trueskillDictionary[player][0]
-		old_trueskill_sigma = trueskillDictionary[player][1]
+		old_trueskill_mu = float(trueskillDictionary[player][0])
+		old_trueskill_sigma = float(trueskillDictionary[player][1])
 		old_trueskill_object = trueskill.Rating(old_trueskill_mu, old_trueskill_sigma) 
 		trueskillDictionary[player] = old_trueskill_object
 	#don't do this if the score is -1 for either player
@@ -32,14 +32,11 @@ def update_trueskills(finalized_set_tuples, trueskillDictionary):
 
 		try:
 			if not (finalized_set_tuple[2] == -1 or finalized_set_tuple[3] == -1):
-
 				winner = finalized_set_tuple[0]
 				loser = finalized_set_tuple[1]
 				winner_old_trueskill = trueskillDictionary[winner]
 				loser_old_trueskill = trueskillDictionary[loser] 
-
 				winner_new_trueskill, loser_new_trueskill = trueskill.rate_1vs1(winner_old_trueskill, loser_old_trueskill)
-
 				trueskillDictionary[winner] = winner_new_trueskill
 				trueskillDictionary[loser] = loser_new_trueskill
 		except KeyError:

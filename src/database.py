@@ -1,8 +1,6 @@
 import psycopg2
-import smashggapi
 import trueskillapi
 import pysmash
-import challongeapi
 import os
 import urlparse
 
@@ -33,9 +31,25 @@ def do_db(q, args):
 
 	try:
 		if (args == None):
-			cur.execute(q.replace("?", "%s"))
+			cur.execute(q)
 		else:
-			cur.execute(q.replace("?", "%s"), args)
+			cur.execute(q, args)
+	except Exception as e:
+		db.rollback()
+		raise e
+
+	db.commit()
+	return cur
+
+def do_db_many(q, args):
+	db = get_db()
+	cur = db.cursor()
+
+	try:
+		if (args == None):
+			cur.executeMany(q)
+		else:
+			cur.executeMany(q, args)
 	except Exception as e:
 		db.rollback()
 		raise e
@@ -52,6 +66,9 @@ def queryOne(q, args=None):
 def queryInsert(q, args=None):
 	return do_db(q, args).lastrowid
 
+def queryInsertNoRow(q, args=None):
+	return do_db(q, args)
+
 def get_all_sponsors():
 	sponsors = []
 	rows = queryMany("""SELECT sponsor from sponsors""")
@@ -61,16 +78,17 @@ def get_all_sponsors():
 
 def update_database_with_tournament_information(tourney_data_in_tuple):
 	try:	
-		queryOne("INSERT INTO tournaments (name, url, calendar_date, unique_tournament_id, website, subdomain) VALUES(?,?,?,?,?,?);", tourney_data_in_tuple)
+		print tourney_data_in_tuple
+		queryInsertNoRow("INSERT INTO tournaments (name, url, calendar_date, unique_tournament_id, website, subdomain) VALUES(%s, %s, %s, %s, %s, %s);", tourney_data_in_tuple)
 		return True
-	except sqlite3.IntegrityError:
+	except psycopg2.IntegrityError:
 		print "Did not add duplicate tournament to database."
-		return False
+		return True
 
 def update_database_with_set_information(list_of_set_data_in_tuples):
 	unique_tournament_id = list_of_set_data_in_tuples[0][6]
 	try:
-		rows = queryOne("SELECT id FROM tournaments WHERE unique_tournament_id=?", (unique_tournament_id,))
+		rows = queryOne("SELECT id FROM tournaments WHERE unique_tournament_id=%s", (unique_tournament_id,))
 		db_tourney_id = rows[0] 
 		new_list_of_set_data_in_tuples = []
 		#set_tuple = (database_winner_id, database_loser_id, winner_score, loser_score, set_id, bracket_id, unique_tournament_id, phase) unique is index 6
@@ -78,9 +96,10 @@ def update_database_with_set_information(list_of_set_data_in_tuples):
 			new_tuple = (tuple_data[0], tuple_data[1], tuple_data[2], tuple_data[3], tuple_data[4], tuple_data[5], tuple_data[7])
 			new_tuple = new_tuple + (db_tourney_id,)
 			new_list_of_set_data_in_tuples.append(new_tuple)
-		queryMany("INSERT INTO sets(winner_id, loser_id, winner_score, loser_score, set_id, bracket_id, phase, db_tournament_id) VALUES (?,?,?,?,?,?,?,?)", new_list_of_set_data_in_tuples)
-		print "Sets were successfully added to the database"
-	except sqlite3.IntegrityError:
+
+			queryInsertNoRow("INSERT INTO sets(winner_id, loser_id, winner_score, loser_score, set_id, bracket_id, phase, db_tournament_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", new_tuple)
+			print "Sets were successfully added to the database"
+	except psycopg2.IntegrityError:
 		print "Duplicate sets were not added to the database."
 
 def create_trueskill_dictionary_for_tournament(entrant_to_player_dict):
@@ -88,8 +107,10 @@ def create_trueskill_dictionary_for_tournament(entrant_to_player_dict):
 	for player in entrant_to_player_dict:
 		db_id = entrant_to_player_dict[player]
 		db_id_tuple = (db_id,)
-		rows = queryOne("SELECT trueskill_mu, trueskill_sigma FROM players WHERE id=?", db_id_tuple)
+		rows = queryOne("SELECT trueskill_mu, trueskill_sigma FROM players WHERE id=%s", db_id_tuple)
 		trueskill_list = []
+		print "rows", rows
+		print "db_id", db_id
 		for row in rows:
 			trueskill_list.append(row)
 		trueskillDictionary[db_id] = trueskill_list
@@ -103,7 +124,7 @@ def update_player_database_with_new_trueskill(trueskillDictionary):
 		new_trueskill_mu = new_trueskill_list[0]
 		new_trueskill_sigma = new_trueskill_list[1]
 		update_tuple = (new_trueskill_list[0], new_trueskill_list[1], db_player_id)
-		queryOne("UPDATE players SET trueskill_mu=?, trueskill_sigma=? WHERE id=?", update_tuple)
+		queryInsertNoRow("UPDATE players SET trueskill_mu=%s, trueskill_sigma=%s WHERE id=%s", update_tuple)
 
 
 #new main.py ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -168,7 +189,7 @@ def recalculate_all_trueskill_for_all_sets_in_db():
 
 def merge_players(real_tag, list_of_incorrect_tags):
 
-	correct_id = queryOne("SELECT id FROM players WHERE tag=?", (real_tag,))
+	correct_id = queryOne("SELECT id FROM players WHERE tag=%s", (real_tag,))
 	ids = queryMany("SELECT id FROM players WHERE tag in ('{}')"
 		.format("', '".join(list_of_incorrect_tags)))
 	incorrect_tag_ids = ", ".join(map(lambda row: str(row[0]), ids))
@@ -191,7 +212,6 @@ def merge_players(real_tag, list_of_incorrect_tags):
 		""".format(incorrect_tag_ids)
 		)
 	recalculate_all_trueskill_for_all_sets_in_db()
-
 
 
 

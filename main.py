@@ -70,7 +70,7 @@ def player(player_id):
 			inner join players AS winners on sets.winner_id = winners.id
 			inner join players AS losers on sets.loser_id = losers.id
 			inner join tournaments on sets.db_tournament_id = tournaments.id
-			WHERE (winners.id=? or losers.id=?)
+			WHERE (winners.id=%s or losers.id=%s)
 			AND (loser_score IS NULL OR loser_score != -1)
 			ORDER BY calendar_date DESC;
 			""", player_tuple)
@@ -97,7 +97,7 @@ def player(player_id):
 
 	row = db.queryOne("""SELECT trueskill_mu, trueskill_sigma, (trueskill_mu-3*trueskill_sigma), display_tag as weighted_trueskill
 				FROM players
-				WHERE id=?""", (player_id,))
+				WHERE id=%s""", (player_id,))
 	mu = row[0]
 	sigma = row[1]
 	weighted_trueskill = row[2]
@@ -145,7 +145,7 @@ def tournamentPage(tournament_id):
 	tournamentWebPageDictionary["information"] = {}
 
 	row = db.queryOne("""SELECT * FROM tournaments
-				WHERE id=?;
+				WHERE id=%s;
 				""", (tournament_id,))
 	if row[6]:
 		subdomain = row[6] + "."
@@ -167,7 +167,7 @@ def tournamentPage(tournament_id):
 				INNER JOIN players as winners on sets.winner_id = winners.id
 				INNER JOIN players as losers on sets.loser_id = losers.id
 				AND loser_score != -1
-				WHERE db_tournament_id=?""", (tournament_id,))
+				WHERE db_tournament_id=%s""", (tournament_id,))
 	player_list = []
 	for row in rows:
 		winner_tag = row[0].decode('utf-8', 'ignore')
@@ -203,7 +203,7 @@ def about():
 @app.route("/search/")
 def search():
 	player = request.args.get('Player').lower()
-	playerquery = db.queryOne("""SELECT id FROM players WHERE tag=?""",((player,)))
+	playerquery = db.queryOne("""SELECT id FROM players WHERE tag=%s""",((player,)))
 	if playerquery:
 		player_id = playerquery[0]
 		return redirect(url_for('player', player_id = player_id))
@@ -228,8 +228,8 @@ def returnh2h():
 
 		p1 = request.args.get('Player1').lower()
 		p2 = request.args.get('Player2').lower() 
-		p1query = db.queryOne("""SELECT id FROM players WHERE tag=?""",((p1,)))
-		p2query = db.queryOne("""SELECT id FROM players WHERE tag=?""",((p2,)))
+		p1query = db.queryOne("""SELECT id FROM players WHERE tag=%s""",((p1,)))
+		p2query = db.queryOne("""SELECT id FROM players WHERE tag=%s""",((p2,)))
 		if p1query and p2query:
 			player_1_id = p1query[0]
 			player_2_id = p2query[0]
@@ -243,17 +243,17 @@ def returnh2h():
 			head2headDictionary["player_2_game_wins"] = 0
 			players_tuple = (player_1_id, player_2_id, player_2_id, player_1_id,)
 
-			row = db.queryOne("""SELECT display_tag FROM players WHERE id=?""", (player_1_id,))
+			row = db.queryOne("""SELECT display_tag FROM players WHERE id=%s""", (player_1_id,))
 			head2headDictionary["player_1_tag"] = row[0]
-			row = db.queryOne("""SELECT display_tag FROM players WHERE id=?""", (player_2_id,))
+			row = db.queryOne("""SELECT display_tag FROM players WHERE id=%s""", (player_2_id,))
 			head2headDictionary["player_2_tag"] = row[0]
 
 			rows = db.queryMany("""SELECT tournaments.name, tournaments.id, tournaments.calendar_date, winners.id, losers.id, winners.tag, losers.tag, winners.display_tag, losers.display_tag, sets.* FROM sets
 					inner join players AS winners on sets.winner_id = winners.id
 					inner join players AS losers on sets.loser_id = losers.id
 					inner join tournaments on sets.db_tournament_id = tournaments.id
-					WHERE (winners.id=? and losers.id=?)
-					OR (winners.id=? and losers.id=?)
+					WHERE (winners.id=%s and losers.id=%s)
+					OR (winners.id=%s and losers.id=%s)
 					AND (loser_score IS NULL OR loser_score != -1)
 					ORDER BY calendar_date DESC;
 					""", players_tuple)
@@ -307,7 +307,7 @@ def submit_form_submitted():
 			submit_tuple = (name, tag, contact, issue_type, info, date)
 
 			db.queryInsert("""INSERT INTO submitted_forms(name, tag, contact, issue_type, information, date_time) 
-							VALUES(?,?,?,?,?,?)""",
+							VALUES(%s,%s,%s,%s,%s,%s)""",
 							submit_tuple)
 
 			message = "Your concern was successfully submitted! We hear you loud and clear and we'll look in to fixing this issue."

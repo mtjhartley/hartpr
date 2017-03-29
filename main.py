@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, request, session, abort, Response, flash
 import flask_login
-from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import src.database as db
 from time import time
 import datetime

@@ -364,6 +364,6 @@ def update_rankings_for_challonge_tournament(tourneyURL, subdomain=None):
 
 
 #update_rankings_for_challonge_tournament("tuk324")
-update_rankings_for_challonge_tournament("ESSM10M")
+#update_rankings_for_challonge_tournament("ESSM10M")
 
 

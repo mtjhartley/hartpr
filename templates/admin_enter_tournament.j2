@@ -32,7 +32,7 @@
 								<input type="text" class="form-control" placeholder="Search for player..." name="Player" id="srch-term" list="player_names">
 									<datalist id="player_names">
 										{% for player in players %}
-											<option value="{{player[1]}}">
+											<option value="{{player[1]}}"></option>
 										{% endfor %}
 									</datalist>
 						    	<div class="input-group-btn">
@@ -46,26 +46,22 @@
                 </div>
              </div>
 		</nav>
+		{{message}}
+		<form action="{{ url_for('admin_enter_tournament_submitted') }}" method = "POST" class="left_align">		
+			<h2>Copy and paste the  bracket link into the box below</h2>
+			<h4>SmashGG format example: smash.gg/tournament/tony-town-3rd-strike-knuckles</h4>
+			<h4>Challonge format example: epeengaming.challonge.com/oop0hkl8</h4>
 
+			URL<br>
+			<input type = "text" name = "bracket_url"/></br>
 
-	<h1>{{message}}</h1>
-	<div class="left_align">
-      <h1>Admin Login Only</h1>
-      <br>
-
-               <form action='/login/' method='POST'>
-                <input type='text' name='email' id='email' placeholder='email'></input>
-                <input type='password' name='pw' id='pw' placeholder='password'></input>
-                <input type='submit' name='submit'></input>
-               </form>
-           
-
-
-
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
-    </div>
-    </div>
-  </body>
+			Website<br>
+			<select class="selectpicker" name="bracket_website">
+  				<option>SmashGG</option>
+  				<option>Challonge</option>
+			</select>
+			</br>
+			<input type = "submit" value = "Submit" id="submit_button"/><br>
+		</form>
+	</body>
 </html>

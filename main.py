@@ -1,11 +1,121 @@
-from flask import Flask, render_template, request, redirect, url_for, request, session, abort
-
+from flask import Flask, render_template, request, redirect, url_for, request, session, abort, Response, flash
+import flask_login
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import src.database as db
 from time import time
 import datetime
 import os
+#import src.challongeapi as challongeapi
+#import src.smashggapi as smashggapi
 
 app = Flask(__name__)
+app.secret_key = "secret"
+
+login_manager = flask_login.LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+login_manager.login_message = "Let's ride!"
+
+# Our mock database.
+users = {'foo@bar.tld': {'pw': 'secret'}}
+class User(flask_login.UserMixin):
+	pass
+
+@login_manager.user_loader
+def user_loader(email):
+	if email not in users:
+		return
+
+	user = User()
+	user.id = email
+	return user
+
+@login_manager.request_loader
+def request_loader(request):
+	email = request.form.get('email')
+	if email not in users:
+		return
+
+	user = User()
+	user.id = email
+	# DO NOT ever store passwords in plaintext and always compare password
+	# hashes using constant-time comparison!
+	user.is_authenticated = request.form['pw'] == users[email]['pw']
+	return user
+
+@app.route('/login/', methods=['GET', 'POST'])
+def login(message = None):
+	if request.method == 'GET':
+		return render_template("login.j2")
+	if request.method == 'POST':
+		email = request.form['email']
+		if request.form['pw'] == users[email]['pw']:
+			user = User()
+			user.id = email
+			flask_login.login_user(user, remember=True)
+			return redirect(url_for('admin'))
+		else:
+			error = "Invalid Credentials. Please try again!"
+			return redirect(url_for('login', message=error))
+
+		return 'Bad login'
+
+
+
+@app.route('/protected/')
+@flask_login.login_required
+def protected():
+	return 'Logged in as: ' + flask_login.current_user.id
+
+
+@app.route("/admin/")
+@flask_login.login_required
+def admin():
+	return render_template("admin_home.j2")
+
+@app.route("/admin/enter/", methods = ['POST', 'GET'])
+@flask_login.login_required
+def admin_enter_tournament_unsubmitted(message = None):
+	return render_template("admin_enter_tournament.j2")
+
+@app.route("/admin/entered/", methods = ['POST'])
+def admin_enter_tournament_submitted(message = None):
+	if request.method == 'POST':
+		website = request.form['bracket_website']
+		url = request.form['bracket_url']
+
+		if website == "SmashGG":
+			tourney_words = url.split('/')
+			slug_index = tourney_words.index('tournament') + 1
+			url_slug = tourney_words[slug_index]
+			#smashggapi.update_rankings_for_challonge_tournament(url_slug, "melee-singles")
+
+		elif website == "Challonge":
+			tourney_words = url.split('/')
+			bracket_url = tourney_words[-1]
+			domain_link = tourney_words[-2]
+			domain_words = domain_link.split('.')
+			subdomain = None
+			if domain_words[-3].lower() != "www":
+				subdomain = domain_words[-3]
+			#challongeapi.update_rankings_for_challonge_tournament(bracket_url, subdomain=None)
+			
+
+
+	#return the template to enter a tournament, with a message of success or failure depending on how the code runs.
+
+@app.route('/logout/')
+def logout():
+	flask_login.logout_user()
+	flash('Logged out')
+	return redirect(url_for('index'))
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+	flash('Unauthorized')
+	return redirect(url_for('login'))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @app.route("/")
 def index():
@@ -26,37 +136,9 @@ def index():
 
 		playerRankingDictionary["players"].append(player_tuple)
 
-
 	playerRankingDictionary["last_update"] = db.queryOne("""SELECT calendar_date FROM tournaments ORDER BY calendar_date DESC LIMIT 1;""")[0]
 
 	return render_template("index.j2", **playerRankingDictionary).encode("utf-8")
-
-@app.route("/login/", methods=['POST', 'GET'])
-def login():
-	error = None
-	if request.method == 'POST':
-		username = request.form['username']
-		password = request.form['password']
-		completion = validate(username, password)
-		if completion == False:
-			error = 'Invalid Credentials. Please try again.'
-		else:
-			return redirect(url_for('secret'))
-	return render_template('login.j2', error=error)
-
-def validate(username, password):
-	completion = False
-	rows = db.queryMany("SELECT * FROM users")
-	for row in rows:
-		dbUser = row[1]
-		dbPass = row[2]
-		if dbUser==username and dbPass==password:
-			completion=True
-	return completion
-
-@app.route('/secret')
-def secret():
-	return "This is a secret page!"
 
 
 @app.route("/player/<int:player_id>")
@@ -318,6 +400,7 @@ def submit_form_submitted():
 
 #put this behind some kind of login credentials
 @app.route('/submit/list')
+@flask_login.login_required
 def submit_form_view():
 	submittedChangesDictionary = {}
 	submittedChangesDictionary["changes"] = []
@@ -342,7 +425,9 @@ def inject_time():
 
 
 if __name__ == "__main__":
+	app.secret_key = os.urandom(12)
 	app.run(host='0.0.0.0', port=os.environ.get("PORT", 5000))
+
 
 
 

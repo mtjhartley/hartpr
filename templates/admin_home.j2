@@ -46,26 +46,13 @@
                 </div>
              </div>
 		</nav>
-
-
-	<h1>{{message}}</h1>
 	<div class="left_align">
-      <h1>Admin Login Only</h1>
-      <br>
-
-               <form action='/login/' method='POST'>
-                <input type='text' name='email' id='email' placeholder='email'></input>
-                <input type='password' name='pw' id='pw' placeholder='password'></input>
-                <input type='submit' name='submit'></input>
-               </form>
-           
+	<ul><h1 >Admin Use Only</h1>
+		<li><a href="{{url_for('admin_enter_tournament_unsubmitted')}}">Enter a tournament in our archive.</a></li>
+		<li><a href="{{url_for('submit_form_view')}}">Database of submitted changes</a></li> 
+		<li><a href="{{url_for('logout')}}">Logout</a></li>
+	</ul>
+	</div>
 
 
-
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
-    </div>
-    </div>
-  </body>
-</html>
+	

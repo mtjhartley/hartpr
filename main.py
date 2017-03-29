@@ -117,8 +117,91 @@ def unauthorized_handler():
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+def create_index_player_map():
+	indexDictionary = {}
+	indexDictionary["players"] = []
+	indexDictionary["sets"] = []
+
+
+	rows = db.queryMany("""SELECT tag, display_tag, Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill, id 
+					FROM players 
+					WHERE players.location = 'WA' 
+					ORDER BY weighted_trueskill desc
+					LIMIT 50;
+					""")
+	count = 0
+	for row in rows:
+		count += 1
+		display_tag, weighted_trueskill, player_id = row[1], row[2], row[3]
+		player_id_tuple = (player_id, player_id)
+		set_rows = db.queryMany("""SELECT tournaments.name, tournaments.id, tournaments.calendar_date, winners.id, losers.id, winners.tag, losers.tag, winners.display_tag, losers.display_tag, sets.* FROM sets
+			inner join players AS winners on sets.winner_id = winners.id
+			inner join players AS losers on sets.loser_id = losers.id
+			inner join tournaments on sets.db_tournament_id = tournaments.id
+			WHERE (winners.id=%s or losers.id=%s)
+			AND (loser_score IS NULL OR loser_score != -1)
+			ORDER BY calendar_date DESC;
+			""", player_id_tuple)
+
+		player_set_win_count = 0
+		player_set_lose_count = 0
+		player_game_win_count = 0
+		player_game_lose_count = 0
+		tournament_count = 0
+		tournament_list = []
+
+		for row in set_rows:
+			tournament_name = row[0]
+			tournament_list.append(tournament_name)
+			if row[3] == player_id:
+				opponent_tag = row[8].decode('utf-8', 'ignore')
+				opponent_id = row[4]
+				result = "W"
+				winner_score = row[12]
+				loser_score = row[13]
+				player_set_win_count += 1
+				if winner_score and winner_score < 4:
+					player_game_win_count += winner_score
+			else:
+				opponent_id = row[3]
+				opponent_tag = row[7].decode('utf-8', 'ignore')
+				result = "L"
+				loser_score = row[12]
+				winner_score = row[13]
+				player_set_lose_count += 1
+				if loser_score and loser_score < 4 and loser_score > -1: #people putting like 500 lol
+					player_game_lose_count += loser_score
+
+			calendar_date = row[2]
+			tourney_id = row[1]
+			score_string = str(winner_score) + '-' + str(loser_score)
+			set_tuple = (tournament_name, opponent_tag, result, calendar_date, score_string, tourney_id, opponent_id)
+			indexDictionary["sets"].append(set_tuple)
+		tourney_attended_count = len(list(set(tournament_list)))
+		if player_set_win_count != 0 and player_set_lose_count != 0:
+			set_win_percent = round(100 * float(player_set_win_count)/float(player_set_win_count + player_set_lose_count), 1)
+			game_win_percent = round(100 * float(player_game_win_count)/float(player_game_win_count + player_game_lose_count), 1)
+		else:
+			set_win_percent = "N/A"
+			game_win_percent = "N/A"
+		player_tuple = (count, display_tag.decode('utf-8', 'ignore'), weighted_trueskill, player_id, player_set_win_count, player_set_lose_count, set_win_percent, game_win_percent, tourney_attended_count)
+		indexDictionary["players"].append(player_tuple)
+	indexDictionary["last_update"] = db.queryOne("""SELECT calendar_date FROM tournaments ORDER BY calendar_date DESC LIMIT 1;""")[0]
+	return indexDictionary
+
+
+
+print create_index_player_map()
+
+
+
+
+
+
+
 @app.route("/")
 def index():
+	indexDictionary = create_index_player_map()
 	playerRankingDictionary = {}
 	playerRankingDictionary["players"] = []
 
@@ -138,7 +221,7 @@ def index():
 
 	playerRankingDictionary["last_update"] = db.queryOne("""SELECT calendar_date FROM tournaments ORDER BY calendar_date DESC LIMIT 1;""")[0]
 
-	return render_template("index.j2", **playerRankingDictionary).encode("utf-8")
+	return render_template("index.j2", **indexDictionary).encode("utf-8")
 
 
 @app.route("/player/<int:player_id>")
@@ -156,26 +239,41 @@ def player(player_id):
 			AND (loser_score IS NULL OR loser_score != -1)
 			ORDER BY calendar_date DESC;
 			""", player_tuple)
-
+	player_set_win_count = 0
+	player_set_lose_count = 0
+	player_game_win_count = 0
+	player_game_lose_count = 0
+	tournament_count = 0
+	tournament_list = []
 	for row in rows:
 		tournament_name = row[0]
+		tournament_list.append(tournament_name)
 		if row[3] == player_id:
 			opponent_tag = row[8].decode('utf-8', 'ignore')
 			opponent_id = row[4]
 			result = "W"
 			winner_score = row[12]
 			loser_score = row[13]
+			player_set_win_count += 1
+			if winner_score and winner_score < 4:
+				player_game_win_count += winner_score
 		else:
 			opponent_id = row[3]
 			opponent_tag = row[7].decode('utf-8', 'ignore')
 			result = "L"
 			loser_score = row[12]
 			winner_score = row[13]
+			player_set_lose_count += 1
+			if loser_score and loser_score < 4 and loser_score > -1: #people putting like 500 lol
+				player_game_lose_count += loser_score
+
 		calendar_date = row[2]
 		tourney_id = row[1]
 		score_string = str(winner_score) + '-' + str(loser_score)
 		set_tuple = (tournament_name, opponent_tag, result, calendar_date, score_string, tourney_id, opponent_id)
 		setsDictionary["sets"].append(set_tuple)
+	tourney_attended_count = len(list(set(tournament_list)))
+	print tourney_attended_count
 
 	row = db.queryOne("""SELECT trueskill_mu, trueskill_sigma, (trueskill_mu-3*trueskill_sigma), display_tag as weighted_trueskill
 				FROM players
@@ -187,6 +285,16 @@ def player(player_id):
 	setsDictionary["sigma"] = round(sigma, 3)
 	setsDictionary["weighted_trueskill"] = round(weighted_trueskill, 3)
 	setsDictionary["display_name"] = row[3].decode('utf-8', 'ignore')
+	setsDictionary["set_win_count"] = player_set_win_count
+	setsDictionary["set_lose_count"] = player_set_lose_count
+	setsDictionary["set_win_percent"] = round(100 * float(player_set_win_count)/float(player_set_win_count + player_set_lose_count), 2)
+	print setsDictionary["set_win_percent"]
+	setsDictionary["game_win_count"] = player_game_win_count
+	setsDictionary["game_lose_count"] = player_game_lose_count
+	setsDictionary["game_win_percent"] = round(100 * float(player_game_win_count)/float(player_game_win_count + player_game_lose_count), 2)
+	setsDictionary["tourney_attended_count"] = tourney_attended_count
+
+
 
 	return render_template("player.j2", **setsDictionary).encode("utf-8")
 

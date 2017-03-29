@@ -242,4 +242,22 @@ th {
 .navbar-form .input-group>.form-control {
     margin-left: 10px;
 }
+/*
+List of shit to do: 
+Get rid of admin link - nobody else will ever use it 
+Include brief explanation of rankings on the main page 
+Include twitters and twitter link formatting 
+the 'rankings last updated' text is too big
+and get rid of the gradient lol in the banner
+get rid of the <3 pr thign on the side
+about section too long:
+cap it by setting width to the divs?
+that might not be the best way
+but you can figure it out lol
+
+empty space to the right for now
+player tag, player skill rating, set winrate, game winrate, total tournaments entered
+that's all guaranteed information i have
+optional: character, twitter, first/last
+*/
 

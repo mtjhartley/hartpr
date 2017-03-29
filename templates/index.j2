@@ -44,17 +44,25 @@
 
 		<h1 id="last_update">Rankings last updated on: {{last_update}}</h1>
 		<div class="left_align">
-			<table class="table table-striped" style="width: 50%">
+			<table class="table table-striped" style="width: 90%" style="margin: auto;">
 			<tr class="table_header">
 				<th>Rank</th>
 				<th>Tag</th>
 				<th>Rating</th>
+				<th>Set Wins</th>
+				<th>Set Losses</th>
+				<th>Set Win %</th>
+				<th>Tournaments Attended</th>
 			</tr>
 			{% for player in players %}
 				<tr>
 					<td>{{player[0]}}</td>
 					<td><a href="{{url_for('player', player_id=player[3])}}">{{player[1]}}</a></td>
 					<td>{{player[2]}}</td>
+					<td>{{player[4]}}</td>
+					<td>{{player[5]}}</td>
+					<td>{{player[6]}}</td>
+					<td>{{player[8]}}</td>
 				</tr>
 			{% endfor %}
 			</table>

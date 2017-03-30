@@ -40,29 +40,31 @@
  			 </div>	
 		</nav>
 
-	<div class="h2h" align="center">
+		<div class ="container">
+		<div class="col-lg-12">
 
 		<ul class="player_history">
 		<div class="within_h2h" id="player1" style="text-align: center;">
-			<li><h1>{{player_1_tag}}</h1></li>
-			<li><h2>Games Won: {{player_1_game_wins}}</h2></li>
+			<li><h2>{{player_1_tag}}</h2></li>
+			<li><h3>Games Won: {{player_1_game_wins}}</h3></li>
 		</div>
 
 		<div class="within_h2h" id="score" style="text-align: center;">
-			<li style=><h1>Lifetime Set Count</h1></li>
-			<li><h1>{{player_1_set_wins}}-{{player_2_set_wins}}</h1></li>
+			<li style=><h2>Set Count</h2></li>
+			<li><h3>{{player_1_set_wins}}-{{player_2_set_wins}}</h3></li>
 		</div>
 
 		<div class="within_h2h" id="player2" style="text-align: center;">
-			<li><h1>{{player_2_tag}}</h1></li>
-			<li><h2>Games Won: {{player_2_game_wins}}</h2></li>
+			<li><h2>{{player_2_tag}}</h2></li>
+			<li><h3>Games Won: {{player_2_game_wins}}</h3></li>
 		</div>
 		</ul>
-	</div>
 
 
 
-			<table class="table table-striped" style="width: 95%" id="h2htable" align="center">
+
+
+			<table class="table table-striped"> 
 			<tr class="table_header">
 				<th>Tournament</th>
 				<th>Winner</th>
@@ -76,10 +78,11 @@
 					<td><a href="{{url_for('player', player_id=set[3])}}">{{set[5]}}</a></td>
 					<td>{{set[7]}}</td>
 					<td><a href="{{url_for('player', player_id=set[4])}}">{{set[6]}}</a></td>
-					<td>{{set[2]}}</td>
+					<td>{{set[2][5:]+set[2][4]+set[2][:4]}}</td>
 				</tr>
 			{% endfor %}
 			</table>
-
+		</div>
+		</div>
 	</body>
 </html>

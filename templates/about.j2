@@ -29,7 +29,7 @@
 						<input type="text" class="form-control" placeholder="Search for player..." name="Player" id="srch-term" list="player_names">
 							<datalist id="player_names">
 								{% for player in players %}
-									<option value="{{player[1]}}">
+									<option value="{{player[1]}}"></option>
 								{% endfor %}
 							</datalist>
 						<div class="input-group-btn">
@@ -41,9 +41,10 @@
 		</nav>
 
 
-	<div class="left_align">
+	<div class ="container">
+	<div class="col-lg-11">
 	<h1>About</h1>
-	<p class="left_align" style="max-width: 70%">The HartPR is a competitive ranking system and tournament archive for the game Super Smash Bros. Melee, created by <a href="https://www.twitter.com/UW_Dempsey">Michael Hartley</a> and <a href="https://www.twitter.com/dz_ssbm">Mitch Dzugan</a>. The goal of our site is to provide an objective indicator of a player's current rank in the Washington Melee community. </p>
+	<p class="left_align">The HartPR is a competitive ranking system and tournament archive for the game Super Smash Bros. Melee, created by <a href="https://www.twitter.com/UW_Dempsey">Michael Hartley</a> and <a href="https://www.twitter.com/dz_ssbm">Mitch Dzugan</a>. The goal of our site is to provide an objective indicator of a player's current rank in the Washington Melee community. </p>
 	<p class="left_align">
 
 	<h2>Contact Us</h2>
@@ -51,19 +52,20 @@
 		<li>Twitter: <a href="https://www.twitter.com/UW_Dempsey">twitter.com/UW_Dempsey</a></li>
 		<li>Email: mtjhartley@gmail.com</li>
 	</ul>
+	</p>
 
 
 	<h2>Ranking System</h2>
-	<p class = "left_align" style="max-width: 75%"> We rank players using the <a href="http://trueskill.org/">Python implementation</a> of the <a href="https://www.microsoft.com/en-us/research/project/trueskill-ranking-system/">Microsoft Trueskill</a> ranking algorithm. Trueskill only takes set wins and losses into account; game counts are not used in the ranking formula but are archived on our site as interesting data. Our system currently supports processing finished brackets from <a href="https://help.smash.gg/hc/en-us/articles/217471947-API-Access">SmashGG</a> and <a href="https://api.challonge.com/v1">Challonge.</a></p>
+	<p class = "left_align"> We rank players using the <a href="http://trueskill.org/">Python implementation</a> of the <a href="https://www.microsoft.com/en-us/research/project/trueskill-ranking-system/">Microsoft Trueskill</a> ranking algorithm. Trueskill only takes set wins and losses into account; game counts are not used in the ranking formula but are archived on our site as interesting data. Our system currently supports processing finished brackets from <a href="https://help.smash.gg/hc/en-us/articles/217471947-API-Access">SmashGG</a> and <a href="https://api.challonge.com/v1">Challonge.</a></p>
 
-	<p class = "left_align" style="max-width: 75%"> The numbers on your 
+	<p class = "left_align"> The numbers on your 
 	<a href="{{url_for('player',player_id=200)}}">player page</a>
 	indicate your skill relative to the rest of the community. Your unadjusted skill is comprised of two key indicators. Mu, the first number, increases and decreases as you win and lose sets.  Sigma, the second number, starts off large and decreases as you play more sets.</p>
-	<p class = "left_align" style="max-width: 75%">
+	<p class = "left_align">
 	The Trueskill number takes your Mu (average approximation of skill) and Sigma (how uncertain we are that your skill lies around that average approximation) and uses Microsoft's suggested ranking formula of  Trueskill = Trueskill Mu - (3 * Trueskill Sigma). You can read more about Trueskill <a href="http://www.moserware.com/2010/03/computing-your-skill.html">here.</a></p>
 
 	<h2>Included Tournaments</h2>
-	<p class="left_align" style="max-width: 75%">We aim to include all paid tournaments within the Western Washington region in our archive. If you find tournaments that are not listed in our archive, please fill out our <a href="{{url_for('submit_form_unsubmitted')}}">form</a> and we will work on getting them added.</p>
+	<p class="left_align">We aim to include all paid tournaments within the Western Washington region in our archive. If you find tournaments that are not listed in our archive, please fill out our <a href="{{url_for('submit_form_unsubmitted')}}">form</a> and we will work on getting them added.</p>
 	<div>
 	<ul class="left_align" style="list-style: none;">
 		<li>Weeklies:</li>
@@ -83,17 +85,18 @@
 	</div>
 
 	<h2>Managing Alternate Tags</h2>
-	<p class="left_align" style="max-width: 75%">Players entering tournaments with different tags can be merged in our system. However, we will not actively hunt down players who choose to enter under fake tags. If you want your ranking to represented in an accurate and timely fashion, please enter as your normal tag. If you have any player merge requests, please fill out our <a href="{{url_for('submit_form_unsubmitted')}}">contact form.</a></p>
+	<p class="left_align">Players entering tournaments with different tags can be merged in our system. However, we will not actively hunt down players who choose to enter under fake tags. If you want your ranking to represented in an accurate and timely fashion, please enter as your normal tag. If you have any player merge requests, please fill out our <a href="{{url_for('submit_form_unsubmitted')}}">contact form.</a></p>
 
 	<h2>Handling Inactive Players</h2>
-	<p class="left_align" style="max-width: 75%">The Washington Power Ranking Panel has designated an activity requirement of 4 tournaments within the ranking period (3-4 months)to be eligible for PR. We will use the same requirement to display players on our rankings page. If you do not meet this requirement, you will be hidden from the global anking page but still searchable on our site.</p> 
+	<p class="left_align">The Washington Power Ranking Panel has designated an activity requirement of 4 tournaments within the ranking period (3-4 months)to be eligible for PR. We will use the same requirement to display players on our rankings page. If you do not meet this requirement, you will be hidden from the global anking page but still searchable on our site.</p> 
 
 
 
 	<h2>Github Link</h2>
-	<p class ="left_align"><a href="https://github.com/mtjhartley/hartpr">https://github.com/mtjhartley/hartpr</p>
+	<p class ="left_align"><a href="https://github.com/mtjhartley/hartpr">https://github.com/mtjhartley/hartpr</a></p>
 
-
+	</div>
+	</div>
 	</body>
 </html>
 

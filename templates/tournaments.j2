@@ -40,9 +40,12 @@
  			 </div>	
 		</nav>
 
-		<h1 id="last_update">Tournament Archive Last Updated On {{tournaments[0][2]}}</h1>
-		<div class="left_align">
-			<table class="table table-striped" style="width: 80%">
+		<div class ="container">
+		<div class="col-lg-12">
+		<h2 id="last_update" align = "center">Washington Melee Tournament Archive</h2>
+		<h3 id="last_update" align = "center">Last update: {{tournaments[0][2][5:]+tournaments[0][2][4]+tournaments[0][2][:4]}}</h3>
+
+			<table class="table table-striped">
 			<tr class="table_header">
 				<th>Tournament</th>
 				<th>SmashGG/Challonge Bracket</th>
@@ -52,10 +55,11 @@
 			<tr>
 				<td><a href="{{url_for('tournamentPage', tournament_id=tournament[3])}}">{{tournament[0]}}</a></td>
 				<td><a href="{{tournament[1]}}">{{tournament[0]}}</a></td>
-				<td>{{tournament[2]}}</td>
+				<td>{{tournament[2][5:] + tournament[2][4] + tournament[2][:4]}}</td>
 			</tr>
 			{% endfor %}
 		</table>
+		</div>
 		</div>
 	</body>
 </html>

@@ -41,11 +41,15 @@
 		</nav>
 
 
-		<div class="left_align">
-		<h1> {{information["name"]}} </h1>
-		<h2><a href="{{information['url']}}">{{information["url"]}}</a></h2>
-		<h4> {{information["calendar_date"]}} </h4>
-		<table class="table table-striped" style="width: 20%;float: left;">
+		<div class ="container">
+		<div class="row-fluid">
+		<div class="col-lg-12">
+		<h2> {{information["name"]}} </h2>
+		<h3><a href="{{information['url']}}">{{information["url"]}}</a></h3>
+		<h4> {{information["calendar_date"][5:]+information["calendar_date"][4]+information["calendar_date"][:4]}} </h4>
+
+
+		<table class="table table-bordered" style="width: 20%;float: left;">
 		<tr class="table_header">
 			<th>Players</th>
 		</tr>
@@ -76,6 +80,8 @@
 		{% endfor %}
 		</table>
 		</div>
+		</div>
+
 	</body>
 </html>
 

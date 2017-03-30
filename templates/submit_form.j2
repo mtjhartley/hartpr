@@ -39,8 +39,8 @@
 				</form>
  			 </div>	
 		</nav>
- 
- 		<div class="left_align" class="form-group">
+ 		<div class ="container">
+		<div class="col-lg-12">
  		<h1>{{message}}</h1>
 		<form action="{{ url_for('submit_form_submitted') }}" method = "POST">		
 			<h3>Submit an error for our players, sets, or tournament archive!</h3>
@@ -70,6 +70,8 @@
 
 			<input type = "submit" value = "Submit" id="submit_button"/><br>
 		</form>
+		</div>
+		</div>
 		</div>
 	</body>
 </html>

@@ -25,11 +25,8 @@ body {
 }
 
 #grad {
-  background: red; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(circle, silver, gray); /* Safari */
-  background: -o-radial-gradient(circle, silver, gray); /* Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(circle, silver, gray); /* Firefox 3.6 to 15 */
-  background: radial-gradient(circle, silver, gray); /* Standard syntax */
+  background: #DBDBDB;
+
 }
 
 #title {
@@ -138,9 +135,6 @@ table {
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 
-.table_header {
-    border-bottom: 2px solid #000000
-}
 
 #last_update {
     position: relative;
@@ -162,6 +156,8 @@ table {
     border-color: white;
 }
 
+
+
 th {
     background-color: #228B22 !important;
     color: #FFFAFA;
@@ -180,10 +176,7 @@ th {
 
 }
 
-#h2h_table {
-  margin-left: auto;
-  margin-right: auto;
-}
+
 
 .player_history {
     list-style-type: none;
@@ -205,6 +198,7 @@ th {
     width: 33%;
     text-align: center;
 }
+
 .resizedTextbox {
     width:800px; 
     height: 100px;
@@ -226,7 +220,13 @@ th {
 .navbar-nav>li>.dropdown-menu {
     color: black;
 }
-
+/*
+th {
+    text-align: center;
+}
+tr {
+    text-align: center;
+} */
 .navbar-inverse .navbar-nav>.open>a, 
 .navbar-inverse .navbar-nav>.open>a:focus, 
 .navbar-inverse .navbar-nav>.open>a:hover {

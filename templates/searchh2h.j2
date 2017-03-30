@@ -40,7 +40,8 @@
  			 </div>	
 		</nav>
 
-		<div class="left_align">
+		<div class ="container">
+		<div class="col-lg-12">
 		<h1>{{message}}</h1>
 		<form action = "{{ url_for('returnh2h') }}" method = "GET">		
 			<h3>See the set history between two players from 2016 and beyond!</h3>
@@ -49,7 +50,7 @@
 			<input type = "text" name = "Player1" list="player_names"/></br>
 				<datalist id="player_names">
 				{% for player in players %}
-					<option value="{{player}}">
+					<option value="{{player}}"></option>
 				{% endfor %}
 				</datalist>
 
@@ -57,13 +58,15 @@
 			<input type = "text" name = "Player2" list="player_names"/><br>
 				<datalist id="player_names">
 				{% for player in players %}
-					<option value="{{player}}">
+					<option value="{{player}}"></option>
 				{% endfor %}
 				</datalist>
 
 
-			<input type = "submit" value = "Let's Ride!" /><br>
+			<input type = "submit" value = "Let's Ride!"><br>
 		</form>
 		</div>
+		</div>
+		
 	</body>
 </html>

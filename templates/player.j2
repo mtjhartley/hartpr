@@ -40,42 +40,95 @@
  			 </div>	
 		</nav>
 
+      <div class ="container">
+      <div class="row-fluid">
+         <div class="col-sm-4">
+            
+            <h2> {{display_name}} </h2>
+            <h2> Trueskill: {{weighted_trueskill}} </h2>
+            <h4> Unadjusted: {{mu}} (+/- {{sigma}}) </h4>
+            <div class="table-responsive">
+               <table class="table table-bordered">
+                  <thead>
+                     <tr>
+                        <th colspan="2">Lifetime Stats</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>Sets Played</td>
+                        <td>{{total_set_count}}</td>
 
-		
-		
-		<h1 class="left_align"> {{display_name}} </h1>
-		<h2 class="left_align"> Trueskill: {{weighted_trueskill}} </h2>
-		<h4 class="left_align"> Unadjusted: {{mu}} (+/- {{sigma}}) </h4>
+                     </tr>
+                     <tr>
+                     	  <td>Sets Won</td>
+                     	  <td>{{set_win_count}}</td>
+                     </tr>
 
-		
+                     <tr>
+                     	  <td>Set Win Percentage</td>
+                     	  <td>{{set_win_percent}}</td>
+                     </tr>
+
+                     <tr>
+                     	  <td>Games Played</td>
+                     	  <td>{{total_game_count}}</td>
+                     </tr>
+
+                     <tr>
+                     	  <td>Games Won</td>
+                     	  <td>{{game_win_count}}</td>
+                     </tr>
+
+                     <tr>
+                     	  <td>Game Win Percentage</td>
+                     	  <td>{{game_win_percent}}</td>
+                     </tr>
+
+                     <tr>
+                     	  <td>Tournaments Attended</td>
+                     	  <td>{{tourney_attended_count}}</td>
+                     </tr>
 
 
-		<h2 class = "left_align"> Sets Won: {{set_win_count}} Sets Lost : {{set_lose_count}} Win Ratio: {{set_win_percent}}%
-		</h2>
-		<h2 class = "left_align"> Games Won: {{game_win_count}} Games Lost : {{game_lose_count}} Win Ratio: {{game_win_percent}}%</h2>
-		<h2 class = "left_align"> Tournaments Attended: {{tourney_attended_count}} </h2>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="col-sm-8">
+            <div class="table-responsive">
+               <table class="table table-striped">
+                  <thead>
+                     <tr>
+      				
+      				<th>Opponent</th>
+      				<th>Result</th>
+      				<th>Score</th>
+      				<th>Tournament</th>
+      				<th>Date</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+      			   {% for set in sets %}
+      			  <tr>
+      				<td><a href="{{url_for('player', player_id=set[6])}}">{{set[1]}}</a></td>
+      				<td>{{set[2]}}</td>
+      				<td>{{set[4]}}</td>
+      				<td><a href="{{url_for('tournamentPage', tournament_id=set[5])}}">{{set[0]}}</a></td>
+      				<td>{{set[3][5:]+set[3][4]+set[3][:4]}}</td>
+      			  </tr>
+      			{% endfor %}
+      			</tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      </div>
 
-		<div class="left_align">
-			<table class="table table-striped" style="width: 60%">
-			<tr class="table_header">
-				<th>Tournament</th>
-				<th>Opponent</th>
-				<th>Score</th>
-				<th>Result</th>
-				<th>Date</th>
-			</tr>
-			{% for set in sets %}
-				<tr>
-					<td><a href="{{url_for('tournamentPage', tournament_id=set[5])}}">{{set[0]}}</a></td>
-					<td><a href="{{url_for('player', player_id=set[6])}}">{{set[1]}}</a></td>
-					<td>{{set[4]}}</td>
-					<td>{{set[2]}}</td>
-					<td>{{set[3]}}</td>
-				</tr>
-			{% endfor %}
-			</table>
-		</div>
-	</body>
+      </body>
 
-</html>
+
+
+
+      </html>
 

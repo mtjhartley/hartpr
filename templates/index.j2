@@ -48,17 +48,27 @@
 			<tr class="table_header">
 				<th>Rank</th>
 				<th>Tag</th>
-				<th>Trueskill</th>
-				<th>Win/Loss</th>
-				<th>Win Ratio</th>
+				<th class="center_td">Trueskill</th>
+				<th class="center_td">Win/Loss</th>
+				<th class="center_td">Winrate</th>
 			</tr>
 			{% for player in players %}
+				
 				<tr>
 					<td>{{player["rank"]}}</td>
 					<td><a href="{{url_for('player', player_id=player['id'])}}">{{player["display_name"]}}</a></td>
-					<td>{{player["trueskill_thousand_test"]}}</td>
-					<td>{{ player["set_win_count"] }} - {{player["set_lose_count"]}}</td>
-					<td>{{player["set_win_percent"]}}%</td>
+					<td class="center_td">{{player["trueskill_thousand_test"]}}</td>
+					<td class="center_td">
+					<div class = "progress">
+						<div class = "progress-bar progress-bar-success" id="progress_success" style ="width: {{ player["set_win_percent"] }}%">
+						{{ player["set_win_count"]}}
+						</div> 
+						<div class = "progress-bar progress-bar-danger" id="progress_failure" style = "width: {{ 100 - player["set_win_percent"] }}%">
+						{{player["set_lose_count"] }}
+						</div>
+					</div>
+					</td>
+					<td class="center_td">{{player["set_win_percent"]}}%</td>
 				</tr>
 			{% endfor %}
 			</table>

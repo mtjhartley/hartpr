@@ -4,7 +4,7 @@ import src.database as db
 from time import time
 import datetime
 import os
-#import src.challongeapi as challongeapi
+import src.challongeapi as challongeapi
 #import src.smashggapi as smashggapi
 
 app = Flask(__name__)
@@ -78,6 +78,7 @@ def admin_enter_tournament_unsubmitted(message = None):
 	return render_template("admin_enter_tournament.j2")
 
 @app.route("/admin/entered/", methods = ['POST'])
+@flask_login.login_required
 def admin_enter_tournament_submitted(message = None):
 	if request.method == 'POST':
 		website = request.form['bracket_website']
@@ -97,7 +98,7 @@ def admin_enter_tournament_submitted(message = None):
 			subdomain = None
 			if domain_words[-3].lower() != "www":
 				subdomain = domain_words[-3]
-			#challongeapi.update_rankings_for_challonge_tournament(bracket_url, subdomain=None)
+			challongeapi.update_rankings_for_challonge_tournament(bracket_url, subdomain=subdomain)
 			
 
 
@@ -196,6 +197,58 @@ def createSetsDictionary(player_id, ForIndex = True):
 
 	return setsDictionary
 
+def roundToMultBelow(num, multiple):
+	return num - (num % multiple)
+
+def gradientVal(maxCol, minCol, maxVal, minVal, val):
+	return int(round((maxCol - minCol) * (float(val - minVal) / (maxVal - minVal)) + minCol))
+
+def getSkillDistribution(rows, player_id = -1):
+	minTrueSkill = int(round(100 * min(rows, key=lambda	row: row[1])[1]))
+	maxTrueSkill = int(round(100 * max(rows, key=lambda	row: row[1])[1]))
+	startRange = roundToMultBelow(minTrueSkill, 50) - 250
+	endRange = roundToMultBelow(maxTrueSkill, 50) + 250
+	counts = [0] * (((endRange - startRange) / 50) + 1)
+
+	playerCountIndex = -1
+
+	for row in rows:
+		index = ((roundToMultBelow(int(round(100 * row[1])), 50) - startRange) / 50)
+		if (row[0] == player_id):
+			playerCountIndex = index
+		counts[index] += 1
+
+
+	maxCount = max(counts)
+	half = sorted(filter(lambda count: count > 0, counts))[len(counts)/2]
+
+	skillDistribution = []
+	for i in range(len(counts)):
+		startPos = startRange + (50 * i)
+		print("{} - {}".format(startPos, startPos + 49))
+
+		if (counts[i] > half):
+			g = gradientVal(180, 72, maxCount, half, counts[i])
+			r = gradientVal(36, 0, maxCount, half, counts[i])
+		else:
+			r = gradientVal(72, 255, half, 0, counts[i])
+			g = gradientVal(36, 0, half, 0, counts[i])
+
+		skillDistribution.append({
+			"numPeople": counts[i],
+			"range": "{} $ {}".format(startPos, startPos + 49),
+			"backgroundColor": "rgba({},{},0,0.666)".format(r,g),
+			"borderColor": "rgba({},{},0,1)".format(r,g)
+			})
+
+	if playerCountIndex > -1:
+		for i in range(len(skillDistribution)):
+			if i != playerCountIndex:
+				skillDistribution[i]["backgroundColor"] = skillDistribution[i]["backgroundColor"].replace("0.666", "0.25")
+				skillDistribution[i]["borderColor"] = skillDistribution[i]["borderColor"].replace("1)", "0.45)")
+
+	return skillDistribution
+
 def newIndexDictionary():
 	allPlayers = {}
 	allPlayers["players"] = []
@@ -203,15 +256,17 @@ def newIndexDictionary():
 				FROM players 
 				WHERE players.location = 'WA' 
 				ORDER BY weighted_trueskill desc
-				LIMIT 50;
 				""")
 	count = 0
-	for row in rows:
+	for row in rows[:50]:
 		count += 1
 		player_id = str(row[0])
 		playerinfo = createSetsDictionary(row[0])
 		playerinfo["rank"] = count 
 		allPlayers["players"].append(playerinfo)
+
+	allPlayers["skillDistribution"] = getSkillDistribution(rows)
+
 	return allPlayers
 
 @app.route("/")
@@ -222,7 +277,13 @@ def index():
 
 @app.route("/player/<int:player_id>")
 def player(player_id):
+	rows = db.queryMany("""SELECT id, Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill
+			FROM players 
+			WHERE players.location = 'WA' 
+			ORDER BY weighted_trueskill desc
+			""")
 	setsDictionary = createSetsDictionary(player_id, ForIndex=False)
+	setsDictionary["skillDistribution"] = getSkillDistribution(rows, player_id)
 	return render_template("player.j2", **setsDictionary).encode("utf-8")
 
 

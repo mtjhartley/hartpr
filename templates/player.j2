@@ -7,6 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="/static/headertable.css??id={{timestamp}}">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
 	</head>
 
 	<body>
@@ -95,8 +96,9 @@
             </div>
          </div>
          <div class="col-sm-8">
+            <canvas id="myChart" width="1110" height="200"></canvas>
             <div class="table-responsive">
-               <table class="table table-striped">
+               <table class="table table-striped" style="width: 90%; margin: 7px auto 0 auto">
                   <thead>
                      <tr>
       				
@@ -104,7 +106,7 @@
       				<th>Result</th>
       				<th>Score</th>
       				<th>Tournament</th>
-      				<th>Date</th>
+      				<th style="width: 100px">Date</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -124,10 +126,69 @@
       </div>
       </div>
 
-      </body>
 
-
-
-
-      </html>
+      <script>
+         var ctx = document.getElementById("myChart");
+         var myChart = new Chart(ctx, {
+             type: 'bar',
+             data: {
+                 labels: [
+                 {% for skillTier in skillDistribution %}
+                  "",
+                 {% endfor %}
+                 ],
+                 datasets: [{
+                  range: [
+                     {% for skillTier in skillDistribution %}
+                        "{{ skillTier["range"] }}",
+                     {% endfor %}
+                  ],
+                     data: [
+                     {% for skillTier in skillDistribution %}
+                        {{ skillTier["numPeople"] }},
+                     {% endfor %}
+                     ],
+                     backgroundColor: [
+                     {% for skillTier in skillDistribution %}
+                        '{{ skillTier["backgroundColor"] }}',
+                     {% endfor %}
+                     ],
+                     borderColor: [
+                     {% for skillTier in skillDistribution %}
+                        '{{ skillTier["borderColor"] }}',
+                     {% endfor %}
+                     ],
+                     borderWidth: 1
+                 }]
+             },
+             options: {
+               legend: {
+                  display: false
+               },
+               title: {
+                  fullWidth: false
+               },
+                 scales: {
+                     yAxes: [{
+                         ticks: {
+                             beginAtZero:true,
+                             fixedStepSize: 15
+                         }
+                     }]
+                 },
+                 tooltips: {
+                  callbacks: {
+                     title: function(items, data) {
+                        return `Skill Rating: ${data.datasets[0].range[items[0].index]}`.replace("$", "➟")
+                     },
+                     label: function (items, data) {
+                        return `Count: ${data.datasets[0].data[items.index]}`
+                     }
+                  }
+                 }
+             }
+         });
+      </script>
+   </body>
+</html>
 

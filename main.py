@@ -173,11 +173,11 @@ def createSetsDictionary(player_id, ForIndex = True):
 	row = db.queryOne("""SELECT trueskill_mu, trueskill_sigma, Round((trueskill_mu-3*trueskill_sigma),3), display_tag as weighted_trueskill
 				FROM players
 				WHERE id=%s""", (player_id,))
-	mu = row[0]
-	sigma = row[1]
+	mu = float(row[0])
+	sigma = float(row[1])
 	weighted_trueskill = row[2]
-	setsDictionary["mu"] = round(mu, 3)
-	setsDictionary["sigma"] = round(sigma, 3)
+	setsDictionary["mu"] = round (mu * 100, 3)
+	setsDictionary["sigma"] = round(sigma * 100, 3)
 	setsDictionary["weighted_trueskill"] = weighted_trueskill
 	setsDictionary["trueskill_thousand_test"] = int(round(100 * weighted_trueskill,0))
 	setsDictionary["display_name"] = row[3].decode('utf-8', 'ignore')

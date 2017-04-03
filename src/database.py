@@ -22,7 +22,7 @@ def get_db():
 			    port=url.port
 			)
 		else:
-			db = psycopg2.connect("dbname=hartprdb user=postgres password=password") #../db/finaltestdb.db when need to update...
+			db = psycopg2.connect("dbname=hartprdb user=postgres password=password") 
 	return db
 
 def do_db(q, args):

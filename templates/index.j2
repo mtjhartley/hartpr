@@ -58,7 +58,17 @@
 				
 				<tr>
 					<td>{{player["rank"]}}</td>
-					<td><a href="{{url_for('player', player_id=player['id'])}}">{{player["display_name"]}}</a></td>
+					<td>
+
+					{% if player['color']%}
+						<img src="static/stock_icons/{{player['character']}}/{{player['character']}}-{{player['color']}}.png" style="margin-right: 8px" style="margin-bottom:10px">
+					{% else %}
+						<img src="static/stock_icons/{{player['character']}}/{{player['character']}}.png" style="margin-right: 8px" style="margin-top:10px">
+					{% endif %}
+
+					<a href="{{url_for('player', player_id=player['id'])}}">{{player["display_name"]}}</a>
+					</td>
+
 					<td class="center_td">{{player["trueskill_thousand_test"]}}</td>
 					<td class="center_td">
 					<div class = "progress">

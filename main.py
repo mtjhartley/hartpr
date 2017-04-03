@@ -225,7 +225,7 @@ def getSkillDistribution(rows, player_id = -1):
 	skillDistribution = []
 	for i in range(len(counts)):
 		startPos = startRange + (50 * i)
-		print("{} - {}".format(startPos, startPos + 49))
+		#print("{} - {}".format(startPos, startPos + 49))
 
 		if (counts[i] > half):
 			g = gradientVal(180, 72, maxCount, half, counts[i])
@@ -252,7 +252,7 @@ def getSkillDistribution(rows, player_id = -1):
 def newIndexDictionary():
 	allPlayers = {}
 	allPlayers["players"] = []
-	rows = db.queryMany("""SELECT id, Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill
+	rows = db.queryMany("""SELECT id, Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill, main_character, main_color
 				FROM players 
 				WHERE players.location = 'WA' 
 				ORDER BY weighted_trueskill desc
@@ -263,6 +263,13 @@ def newIndexDictionary():
 		player_id = str(row[0])
 		playerinfo = createSetsDictionary(row[0])
 		playerinfo["rank"] = count 
+		playerinfo["character"] = "sandbag"
+		if row[2]:
+			playerinfo["character"] = row[2]
+		playerinfo["color"] = None
+		if row[3]:
+			playerinfo["color"] = row[3]
+	
 		allPlayers["players"].append(playerinfo)
 
 	allPlayers["skillDistribution"] = getSkillDistribution(rows)
@@ -386,7 +393,6 @@ def search():
 		player_id = playerquery[0]
 		return redirect(url_for('player', player_id = player_id))
 	else:
-		print "fuck"
 		return redirect(url_for('index'))
 
 

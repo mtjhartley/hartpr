@@ -1,0 +1,221 @@
+color queries
+
+ALTER TABLE players
+ADD main_character text;
+
+ALTER TABLE players
+ADD main_color text;
+
+UPDATE players
+SET main_character = 'fox', main_color = 'green'
+WHERE tag = 'silent wolf';
+
+UPDATE players
+SET main_character = 'peach', main_color = 'blue'
+WHERE tag = 'bladewise';
+
+UPDATE players
+SET main_character = 'marth', main_color = 'red'
+WHERE tag = 'iceman';
+
+UPDATE players
+SET main_character = 'peach'
+WHERE tag = 'rustin';
+
+UPDATE players
+SET main_character = 'falcon', main_color = 'pink'
+WHERE tag = 'ebay';
+
+UPDATE players
+SET main_character = 'falco', main_color = 'green'
+WHERE tag = 'oreo';
+
+UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'shoyo';
+
+UPDATE players
+SET main_character = 'jigglypuff', main_color = 'blue'
+WHERE tag = 'vinodh';
+
+UPDATE players
+SET main_character = 'fox', main_color = 'green'
+WHERE tag = 'dacky';
+
+UPDATE players
+SET main_character = 'samus', main_color = 'black'
+WHERE tag = 'theprime';
+
+UPDATE players
+SET main_character = 'samus'
+WHERE tag = 'chevy';
+
+UPDATE players
+SET main_character = 'sheik', main_color = 'black'
+WHERE tag = 'pookie';
+
+UPDATE players
+SET main_character = 'jigglypuff', main_color = 'gold'
+WHERE tag = 'gus';
+
+UPDATE players
+SET main_character = 'falco', main_color = 'blue'
+WHERE tag = 'jawanga';
+
+UPDATE players
+SET main_character = 'sheik', main_color = 'blue'
+WHERE tag = 'chief';
+
+UPDATE players
+SET main_character = 'falco', main_color = 'red'
+WHERE tag = 'dz';
+
+UPDATE players
+SET main_character = 'falcon'
+WHERE tag = 'wasabi';
+
+UPDATE players
+SET main_character = 'fox', main_color = 'red'
+WHERE tag = 'shanks';
+
+UPDATE players
+SET main_character = 'sheik', main_color = 'blue'
+WHERE tag = 'metric';
+
+UPDATE players
+SET main_character = 'fox', main_color = 'red'
+WHERE tag = 'amrit';
+
+UPDATE players
+SET main_character = 'jigglypuff', main_color = 'red'
+WHERE tag = 'low5';
+
+UPDATE players
+SET main_character = 'falco'
+WHERE tag = 'xest';
+
+UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'salty seth';
+
+UPDATE players
+SET main_character = 'falco', main_color = 'blue'
+WHERE tag = 'geof t. samus';
+
+UPDATE players
+SET main_character = 'sheik'
+WHERE tag = 'bliss';
+
+UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'banana';
+
+UPDATE players
+SET main_character = 'falco', main_color = 'red'
+WHERE tag = 'cryptic';
+
+UPDATE players
+SET main_character = 'sheik', main_color = 'red'
+WHERE tag = 'im_jk';
+
+UPDATE players
+SET main_character = 'sheik'
+WHERE tag = 'felix';
+
+UPDATE players
+SET main_character = 'jigglypuff'
+WHERE tag = 'puff mayne';
+
+UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'almond';
+
+UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'grigri';
+
+UPDATE players
+SET main_character = 'jigglypuff', main_color = 'green'
+WHERE tag = 'chango';
+
+UPDATE players
+SET main_character = 'peach'
+WHERE tag = 'tlo';
+
+UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'fox';
+
+
+UPDATE players
+SET main_character = 'luigi'
+WHERE tag = 'pocket sand';
+
+UPDATE players
+SET main_character = 'nDie'
+WHERE tag = 'sheik';
+
+UPDATE players
+SET main_character = 'sheik', main_color = 'green'
+WHERE tag = 'dempsey';
+
+UPDATE players
+SET main_character = 'ganon'
+WHERE tag = 'rollerbob';
+
+UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'nigel';
+
+UPDATE players
+SET main_character = 'peach'
+WHERE tag = 'aura';
+
+UPDATE players
+SET main_character = 'falco', main_color = 'green'
+WHERE tag = 'pwrup!';
+
+UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'hugo popov';
+
+UPDATE players
+SET main_character = 'marth', main_color = 'red'
+WHERE tag = 'pride';
+
+UPDATE players
+SET main_character = 'marth'
+WHERE tag = 'comfort';
+
+UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'moze';
+
+UPDATE players
+SET main_character = 'falco'
+WHERE tag = 'davidcanfly';
+
+UPDATE players
+SET main_character = 'falco'
+WHERE tag = 'leahboo';
+
+UPDATE players
+SET main_character = "sheik", main_color ="black"
+WHERE tag ='carrigan'
+
+UPDATE players
+SET main_character = 'fox', main_color = 'green'
+WHERE tag = 'bit.ly/mamekitsune';
+
+UPDATE players
+SET main_character = 'fox', main_color = 'green'
+WHERE tag = 'fatgoku';
+
+UPDATE players
+SET main_character = 'marth'
+WHERE tag = 'note';
+
+UPDATE players
+SET main_character = 'falco', main_color = 'red'
+WHERE tag = 'ganobrator';
+

@@ -113,17 +113,28 @@
 			    },
 			    options: {
 			    	legend: {
-			    		display: false
+			    		display: false,
 			    	},
 			    	title: {
-			    		fullWidth: false
+			    		fullWidth: false,
+			    		display: true,
+			    		text: "Skill Rating Distrubtion: Washington Melee",
+			    		position: 'top',
+			    		fontSize: 16,
+			    		fontColor: "black"
 			    	},
 			        scales: {
 			            yAxes: [{
-			                ticks: {
-			                    beginAtZero:true,
-                             	fixedStepSize: 15
-			                }
+			                scaleLabel: {
+			            		display: true,
+			            		labelString: "# People In Skill Bracket",
+			            		fontSize: 13,
+			            		fontColor: "black"
+			            	},
+			           		ticks: {
+			                    beginAtZero: true,
+                             	fixedStepSize: 15,
+			                },
 			            }]
 			        },
 			        tooltips: {

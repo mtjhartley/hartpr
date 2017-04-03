@@ -170,7 +170,7 @@ def createSetsDictionary(player_id, ForIndex = True):
 	tourney_attended_count = len(list(set(tournament_list)))
 
 
-	row = db.queryOne("""SELECT trueskill_mu, trueskill_sigma, Round((trueskill_mu-3*trueskill_sigma),3), display_tag as weighted_trueskill
+	row = db.queryOne("""SELECT trueskill_mu, trueskill_sigma, Round((trueskill_mu-3*trueskill_sigma),3), display_tag, main_character, main_color, alternate_character, alternate_color as weighted_trueskill
 				FROM players
 				WHERE id=%s""", (player_id,))
 	mu = float(row[0])
@@ -187,6 +187,20 @@ def createSetsDictionary(player_id, ForIndex = True):
 	setsDictionary["game_win_count"] = player_game_win_count
 	setsDictionary["game_lose_count"] = player_game_lose_count
 	setsDictionary["total_game_count"] = player_game_win_count + player_game_lose_count
+	
+	setsDictionary["main_character"] = "sandbag"
+	setsDictionary["main_color"] = None
+	setsDictionary["alternate_character"] = None
+	setsDictionary["alternate_color"] = None
+	if row[4]:
+		setsDictionary["main_character"] = row[4]
+		if row[5]:
+			setsDictionary["main_color"] = row[5]
+		if row[6]:
+			setsDictionary["alternate_character"] = row[6]
+		if row[7]:
+			setsDictionary["alternate_color"] = row[7]
+
 	try:
 		setsDictionary["set_win_percent"] = round(100 * float(player_set_win_count)/float(player_set_win_count + player_set_lose_count), 1)
 		setsDictionary["game_win_percent"] = round(100 * float(player_game_win_count)/float(player_game_win_count + player_game_lose_count), 1)

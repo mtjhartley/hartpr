@@ -48,8 +48,8 @@
 
 			<table class="table table-striped" id=ranking_index_table>
 			<tr class="table_header">
-				<th>Rank</th>
-				<th>Tag</th>
+				<th class="center_td">Rank</th>
+				<th style="padding-left:4%">Tag</th>
 				<th class="center_td">Trueskill</th>
 				<th class="center_td">Win/Loss</th>
 				<th class="center_td">Winrate</th>
@@ -57,7 +57,7 @@
 			{% for player in players %}
 				
 				<tr>
-					<td>{{player["rank"]}}</td>
+					<td class="center_td">{{player["rank"]}}</td>
 					<td>
 
 					{% if player['color']%}

@@ -6,6 +6,13 @@ ADD main_character text;
 ALTER TABLE players
 ADD main_color text;
 
+ALTER TABLE players
+ADD alternate_character text;
+
+ALTER TABLE players
+ADD alternate_color text;
+
+
 UPDATE players
 SET main_character = 'fox', main_color = 'green'
 WHERE tag = 'silent wolf';
@@ -20,6 +27,10 @@ WHERE tag = 'iceman';
 
 UPDATE players
 SET main_character = 'peach'
+WHERE tag = 'rustin';
+
+UPDATE players
+SET alternate_character = 'fox', alternate_color =  'green'
 WHERE tag = 'rustin';
 
 UPDATE players
@@ -208,6 +219,10 @@ SET main_character = 'fox', main_color = 'green'
 WHERE tag = 'bit.ly/mamekitsune';
 
 UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'burgerdon';
+
+UPDATE players
 SET main_character = 'fox', main_color = 'green'
 WHERE tag = 'fatgoku';
 
@@ -218,4 +233,19 @@ WHERE tag = 'note';
 UPDATE players
 SET main_character = 'falco', main_color = 'red'
 WHERE tag = 'ganobrator';
+
+UPDATE players 
+SET main_character = 'iceclimbers', main_color = 'green'
+WHERE tag = 'toxic';
+
+UPDATE players 
+SET main_character = 'marth', main_color = 'black'
+WHERE tag = 'law';
+
+UPDATE players 
+SET main_character = 'fox', main_color = 'blue'
+WHERE tag = 'billy';
+
+
+
 

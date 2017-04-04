@@ -1,43 +1,6 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.j2' %}
 
-	<head>
-		<title>Hart PR</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="/static/headertable.css??id={{timestamp}}">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</head>
-
-	<body>
-		<div class="header" id="grad"><span><a href="{{url_for('index')}}" id="logo">&#9825;PR</a></span></div>
-			<nav class="navbar navbar-inverse navbar-static-top">
- 			<div class="container-fluid" id="main">
-    			<div class="navbar-header">
-    				<a class="navbar-brand" href="{{url_for('index')}}">&#9825;PR</a>
-  				</div>
- 		    	<ul class="nav navbar-nav">
-					<li><a href="{{url_for('index')}}">Ranking</a></li>
-					<li><a href="{{url_for('tournaments')}}">Tournaments</a></li>
-					<li id="active"><a href="{{url_for('searchh2h')}}">Head2Head</a></li>
-					<li><a href="{{url_for('submit_form_unsubmitted')}}">Request Changes</a></li>
-					<li><a class="right_most" href="{{url_for('about')}}">About</a></li>
-    			</ul>
-				<form class="navbar-form" role="search" action="{{ url_for('search') }}">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search for player..." name="Player" id="srch-term" list="player_names">
-							<datalist id="player_names">
-								{% for player in players %}
-									<option value="{{player}}">
-								{% endfor %}
-							</datalist>
-						<div class="input-group-btn">
-					<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-						</div>
-					</div>
-				</form>
- 			 </div>	
-		</nav>
+  {% block content %}
 
 		<div class ="container">
 		<div class="col-lg-12">
@@ -67,5 +30,4 @@
 		</div>
 		</div>
 		
-	</body>
-</html>
+   {% endblock %}

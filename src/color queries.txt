@@ -1,17 +1,5 @@
 color queries
 
-ALTER TABLE players
-ADD main_character text;
-
-ALTER TABLE players
-ADD main_color text;
-
-ALTER TABLE players
-ADD alternate_character text;
-
-ALTER TABLE players
-ADD alternate_color text;
-
 
 UPDATE players
 SET main_character = 'fox', main_color = 'green'
@@ -245,6 +233,18 @@ WHERE tag = 'law';
 UPDATE players 
 SET main_character = 'fox', main_color = 'blue'
 WHERE tag = 'billy';
+
+UPDATE players 
+SET main_character = 'peach', main_color = 'blue'
+WHERE tag = 'bdj';
+
+UPDATE players 
+SET main_character = 'marth', main_color = 'blue'
+WHERE tag = 'magesoren';
+
+UPDATE players 
+SET alternate_character = 'falco'
+WHERE tag = 'magesoren';
 
 
 

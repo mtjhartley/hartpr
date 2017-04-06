@@ -154,6 +154,7 @@ def createSetsDictionary(player_id, ForIndex = True):
 			player_set_win_count += 1
 			if winner_score and winner_score < 4:
 				player_game_win_count += winner_score
+				player_game_lose_count += loser_score
 		else:
 			opponent_id = row[3]
 			opponent_tag = row[7].decode('utf-8', 'ignore')
@@ -163,6 +164,7 @@ def createSetsDictionary(player_id, ForIndex = True):
 			player_set_lose_count += 1
 			if loser_score and loser_score < 4 and loser_score > -1: #people putting like 500 lol
 				player_game_lose_count += loser_score
+				
 
 		calendar_date = row[2]
 		tourney_id = row[1]

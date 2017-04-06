@@ -283,15 +283,10 @@ def newIndexDictionary(Page=None):
 	if Page:
 		pageNumber = Page - 1
 		pageOffset = pageNumber * 50
+		pageSliceOffset = (pageNumber + 1) * 50
 		print "pageOffset", pageOffset
-	rows = db.queryMany("""SELECT id, Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill, main_character, main_color
-				FROM players 
-				WHERE players.location = 'WA' 
-				ORDER BY weighted_trueskill desc
-				LIMIT 50 OFFSET %s
-				""", (pageOffset,))
 
-	for row in rows:
+	for row in graphRows[pageOffset:pageSliceOffset]:
 		pageOffset += 1
 		player_id = str(row[0])
 		playerinfo = createSetsDictionary(row[0])

@@ -280,7 +280,8 @@ def newIndexDictionary(Page=None):
 	pageOffset = 0
 	if Page:
 		pageNumber = Page - 1
-		pageOffset = Page * 50
+		pageOffset = pageNumber * 50
+		print "pageOffset", pageOffset
 	rows = db.queryMany("""SELECT id, Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill, main_character, main_color
 				FROM players 
 				WHERE players.location = 'WA' 

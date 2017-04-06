@@ -4,7 +4,7 @@
 	<div class ="container">
 	<div class="col-lg-11">
 	<h1>About</h1>
-	<p class="left_align">The HartPR is a competitive ranking system and tournament archive for the game Super Smash Bros. Melee, created by <a href="https://www.twitter.com/UW_Dempsey">Michael Hartley</a> and <a href="https://www.twitter.com/dz_ssbm">Mitch Dzugan</a>. The goal of our site is to provide an objective indicator of a player's current rank in the Washington Melee community as well as interesting statistical data.</p>
+	<p class="left_align">The HartPR is a competitive ranking system and tournament archive for the game Super Smash Bros. Melee, created by <a href="https://www.twitter.com/UW_Dempsey">Michael Hartley</a> and <a href="https://www.twitter.com/dz_ssbm">Mitch Dzugan</a>. The goal of our site is to provide an objective indicator of a player's current rank in the Washington Melee community as well as their comprehensive in-state history as a competitor.</p>
 	<p class="left_align">
 
 	<h2>Contact Us</h2>
@@ -24,8 +24,24 @@
 	<p class = "left_align">
 	The Trueskill number takes your Mu (average approximation of skill) and Sigma (how uncertain we are that your skill lies around that average approximation) and uses Microsoft's suggested ranking formula of  Trueskill = Trueskill Mu - (3 * Trueskill Sigma). You can read more about Trueskill <a href="http://www.moserware.com/2010/03/computing-your-skill.html">here.</a></p>
 
+	<p class ="left_align">
+	Our ranking system has several limitations. Skilled out of state players are ranked with less accuracy (due to a smaller tournament sample size) than they would be ranked if they lived in Washington. Thus, wins or losses against OOS players may not reflect upon your Trueskill change as drastically as you would expect. 
+	</p>
+
+	<p class ="left_align">
+	The tournament archive only dates back to the beginning of 2016. We decided upon this date after somewhat futilely searching various challonge users for brackets before 2016. The addition of those brackets to our archive would skew the rankings in favor of the old; something we are not trying to represent. HartPR rankings aim to be a current snapshot of your rank in the community, bolstered by your attendance and performance at tournaemnts.
+
+	</p>
+
+	<p class ="left_align">Furthermore, Challonge brackets often have misspelled tags and joke names. Our program can catch misspelled tags to a certain degree of accuracy, but is not perfect. If we am unfamiliar with the joke tag you are entering as, the tag will be entered as a new player entity in our database and your Trueskill will not be accurately updated until I am informed of this error and the players are merged. 
+	</p>
+
+	<p class ="left_align">
+	Lastly, unfinished challonge brackets are not currently supported by our system. If you are hosting or even entering results into the bracket while at a tournament, please ensure that the tournament is officialy completed on Challonge! 
+	</p>
+
 	<h2>Included Tournaments</h2>
-	<p class="left_align">We aim to include all paid tournaments within the Western Washington region in our archive. If you find tournaments that are not listed in our archive, please fill out our <a href="{{url_for('submit_form_unsubmitted')}}">form</a> and we will work on getting them added.</p>
+	<p class="left_align">We aim to include all paid tournaments within the Western Washington region in our archive. Free tournaments such as UW Smash PR tournaments and smaller tournaments such as SU weeklies are not included. If you find tournaments that are not listed in our archive, please fill out our <a href="{{url_for('submit_form_unsubmitted')}}">form</a> and we will work on getting them added.</p>
 	<div>
 	<ul class="left_align" style="list-style: none;">
 		<li>Weeklies:</li>

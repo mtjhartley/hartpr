@@ -433,7 +433,7 @@ def search():
 		player_id = playerquery[0]
 		return redirect(url_for('player', player_id = player_id))
 	else:
-		return redirect(request.headers.get("Referer"), error_message="The user you searched for doesn't exist")
+		return redirect(request.headers.get("Referer"))
 
 
 @app.route("/head2head/search/", methods = ['GET'])

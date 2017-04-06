@@ -306,12 +306,11 @@ def newIndexDictionary(Page=None):
 def rerouteSlash():
 	return redirect(url_for("index"))
 
-@app.route('/rankings/')
+@app.route('/rankings/1')
 @app.route('/rankings/<int:page>')
 def index(page=1):
 	indexDictionary = newIndexDictionary(Page=page)
 	final_page_number = int((indexDictionary["player_count"] / 50) + 1)
-	print final_page_number
 	indexDictionary["last_update"] = db.queryOne("""SELECT calendar_date FROM tournaments ORDER BY calendar_date DESC LIMIT 1;""")[0]
 	indexDictionary["last_page_2"] = page - 2
 	indexDictionary["last_page"] = page - 1
@@ -434,7 +433,7 @@ def search():
 		player_id = playerquery[0]
 		return redirect(url_for('player', player_id = player_id))
 	else:
-		return redirect(url_for('index'))
+		return redirect(request.headers.get("Referer"), error_message="The user you searched for doesn't exist")
 
 
 @app.route("/head2head/search/", methods = ['GET'])

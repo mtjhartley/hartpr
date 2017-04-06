@@ -125,24 +125,56 @@
 		  <div class="pagination">
 		    <!-- <a href="#">&laquo;</a> -->
 
-		    <a {%- if request.path == url_for('index', page=1) %} class="active" {% endif %} href="{{url_for('index', page=1)}}">1</a>
-		    <a {%- if request.path == url_for('index', page=2) %} class="active" {% endif %} href="{{url_for('index', page=2)}}">2</a>
-		    <a {%- if request.path == url_for('index', page=3) %} class="active" {% endif %} href="{{url_for('index', page=3)}}">3</a>
-		    <a {%- if request.path == url_for('index', page=4) %} class="active" {% endif %} href="{{url_for('index', page=4)}}">4</a>
-		    <a {%- if request.path == url_for('index', page=5) %} class="active" {% endif %} href="{{url_for('index', page=5)}}">5</a>
-		    <a {%- if request.path == url_for('index', page=6) %} class="active" {% endif %} href="{{url_for('index', page=6)}}">6</a>
-		    <a {%- if request.path == url_for('index', page=7) %} class="active" {% endif %} href="{{url_for('index', page=7)}}">7</a>
-		    <a {%- if request.path == url_for('index', page=8) %} class="active" {% endif %} href="{{url_for('index', page=8)}}">8</a>
-		    <a {%- if request.path == url_for('index', page=9) %} class="active" {% endif %} href="{{url_for('index', page=9)}}">9</a>
-		    <a {%- if request.path == url_for('index', page=10) %} class="active" {% endif %} href="{{url_for('index', page=10)}}">10</a>
-		    <a {%- if request.path == url_for('index', page=11) %} class="active" {% endif %} href="{{url_for('index', page=11)}}">11</a>
-		    <a {%- if request.path == url_for('index', page=12) %} class="active" {% endif %} href="{{url_for('index', page=12)}}">12</a>
-		    <a {%- if request.path == url_for('index', page=13) %} class="active" {% endif %} href="{{url_for('index', page=13)}}">13</a>
-		    <a {%- if request.path == url_for('index', page=14) %} class="active" {% endif %} href="{{url_for('index', page=14)}}">14</a>
-		    <a {%- if request.path == url_for('index', page=15) %} class="active" {% endif %} href="{{url_for('index', page=15)}}">15</a>
-		    <a {%- if request.path == url_for('index', page=16) %} class="active" {% endif %} href="{{url_for('index', page=16)}}">16</a>
-		    <a {%- if request.path == url_for('index', page=17) %} class="active" {% endif %} href="{{url_for('index', page=17)}}">17</a>
-		    <!-- <a href="#">&raquo;</a> -->
+		    {% if current_page == final_page_number or current_page == final_page_number - 1%}
+		    	{% if current_page == final_page_number - 1 %}
+		    		<a href="{{url_for('index', page=1)}}"">&laquo;</a>
+			    	<a {%- if request.path == url_for('index', page=last_page_2-1) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2-1)}}">{{last_page_2-1}}</a>
+			    	<a {%- if request.path == url_for('index', page=last_page_2) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2)}}">{{last_page_2}}</a>
+			   		<a {%- if request.path == url_for('index', page=last_page) %} class="active" {% endif %} href="{{url_for('index', page=last_page)}}">{{last_page}}</a>
+			    	<a {%- if request.path == url_for('index', page=current_page) %} class="active" {% endif %} href="{{url_for('index', page=current_page)}}">{{current_page}}</a>
+					<a {%- if request.path == url_for('index', page=next_page) %} class="active" {% endif %} href="{{url_for('index', page=next_page)}}">{{next_page}}</a>
+				    <a href="{{url_for('index', page=final_page_number)}}">&raquo;</a>
+
+
+		    	{% else %}
+			    	<a href="{{url_for('index', page=1)}}"">&laquo;</a>
+				    <a {%- if request.path == url_for('index', page=last_page_2-2) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2-2)}}">{{last_page_2-2}}</a>
+			    	<a {%- if request.path == url_for('index', page=last_page_2-1) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2-1)}}">{{last_page_2-1}}</a>
+			    	<a {%- if request.path == url_for('index', page=last_page_2) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2)}}">{{last_page_2}}</a>
+			   		<a {%- if request.path == url_for('index', page=last_page) %} class="active" {% endif %} href="{{url_for('index', page=last_page)}}">{{last_page}}</a>
+			    	<a {%- if request.path == url_for('index', page=current_page) %} class="active" {% endif %} href="{{url_for('index', page=current_page)}}">{{current_page}}</a>
+				    <a href="{{url_for('index', page=final_page_number)}}">&raquo;</a>
+				{% endif %}
+
+			{% else %}
+			    {% if current_page > 2 %}
+			        <a href="{{url_for('index', page=1)}}"">&laquo;</a>
+					<a {%- if request.path == url_for('index', page=last_page_2) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2)}}">{{last_page_2}}</a>
+				    <a {%- if request.path == url_for('index', page=last_page) %} class="active" {% endif %} href="{{url_for('index', page=last_page)}}">{{last_page}}</a>
+				    <a {%- if request.path == url_for('index', page=current_page) %} class="active" {% endif %} href="{{url_for('index', page=current_page)}}">{{current_page}}</a>
+				    <a {%- if request.path == url_for('index', page=next_page) %} class="active" {% endif %} href="{{url_for('index', page=next_page)}}">{{next_page}}</a>
+				    <a {%- if request.path == url_for('index', page=next_page_2) %} class="active" {% endif %} href="{{url_for('index', page=next_page_2)}}">{{next_page_2}}</a>
+				    <a href="{{url_for('index', page=final_page_number)}}">&raquo;</a>
+				{% endif %}
+				{% if current_page == 1 %}
+					<a href="{{url_for('index', page=1)}}">&laquo;</a>
+					<a {%- if request.path == url_for('index', page=current_page) %} class="active" {% endif %} href="{{url_for('index', page=current_page)}}">{{current_page}}</a>
+					<a {%- if request.path == url_for('index', page=current_page+1) %} class="active" {% endif %} href="{{url_for('index', page=current_page+1)}}">{{current_page+1}}</a>
+					<a {%- if request.path == url_for('index', page=current_page+2) %} class="active" {% endif %} href="{{url_for('index', page=current_page+2)}}">{{current_page+2}}</a>
+					<a {%- if request.path == url_for('index', page=current_page+3) %} class="active" {% endif %} href="{{url_for('index', page=current_page+3)}}">{{current_page+3}}</a>
+					<a {%- if request.path == url_for('index', page=current_page+4) %} class="active" {% endif %} href="{{url_for('index', page=current_page+4)}}">{{current_page+4}}</a>
+					<a href="{{url_for('index', page=final_page_number)}}">&raquo;</a>
+				{% endif %}
+				{% if current_page == 2 %}
+					<a href="{{url_for('index', page=1)}}">&laquo;</a>
+					<a {%- if request.path == url_for('index', page=current_page-1) %} class="active" {% endif %} href="{{url_for('index', page=current_page-1)}}">{{current_page-1}}</a>
+					<a {%- if request.path == url_for('index', page=current_page) %} class="active" {% endif %} href="{{url_for('index', page=current_page)}}">{{current_page}}</a>
+					<a {%- if request.path == url_for('index', page=current_page+1) %} class="active" {% endif %} href="{{url_for('index', page=current_page+1)}}">{{current_page+1}}</a>
+					<a {%- if request.path == url_for('index', page=current_page+2) %} class="active" {% endif %} href="{{url_for('index', page=current_page+2)}}">{{current_page+2}}</a>
+					<a {%- if request.path == url_for('index', page=current_page+3) %} class="active" {% endif %} href="{{url_for('index', page=current_page+3)}}">{{current_page+3}}</a>
+					<a href="{{url_for('index', page=final_page_number)}}">&raquo;</a>
+				{% endif %}
+			{% endif %}
 		  </div>
 		</div>
 	{% endblock %}

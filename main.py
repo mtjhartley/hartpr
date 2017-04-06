@@ -278,6 +278,7 @@ def newIndexDictionary(Page=None):
 				ORDER BY weighted_trueskill desc;
 				""")
 	allPlayers["skillDistribution"] = getSkillDistribution(graphRows)
+	allPlayers["player_count"] = float(len(graphRows))
 
 	pageOffset = 0
 	if Page:
@@ -309,7 +310,16 @@ def rerouteSlash():
 @app.route('/rankings/<int:page>')
 def index(page=1):
 	indexDictionary = newIndexDictionary(Page=page)
+	final_page_number = int((indexDictionary["player_count"] / 50) + 1)
+	print final_page_number
 	indexDictionary["last_update"] = db.queryOne("""SELECT calendar_date FROM tournaments ORDER BY calendar_date DESC LIMIT 1;""")[0]
+	indexDictionary["last_page_2"] = page - 2
+	indexDictionary["last_page"] = page - 1
+	indexDictionary["current_page"] = page
+	indexDictionary["next_page"] = page + 1
+	indexDictionary["next_page_2"] = page + 2
+	indexDictionary["final_page_number"] = final_page_number
+
 
 	return render_template("index.j2", **indexDictionary).encode("utf-8")
 

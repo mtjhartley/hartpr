@@ -123,7 +123,7 @@
 		</script>
 		<div class="center">
 		  <div class="pagination">
-		    <a href="#">&laquo;</a>
+		    <!-- <a href="#">&laquo;</a> -->
 
 		    <a {%- if request.path == url_for('index', page=1) %} class="active" {% endif %} href="{{url_for('index', page=1)}}">1</a>
 		    <a {%- if request.path == url_for('index', page=2) %} class="active" {% endif %} href="{{url_for('index', page=2)}}">2</a>
@@ -142,7 +142,7 @@
 		    <a {%- if request.path == url_for('index', page=15) %} class="active" {% endif %} href="{{url_for('index', page=15)}}">15</a>
 		    <a {%- if request.path == url_for('index', page=16) %} class="active" {% endif %} href="{{url_for('index', page=16)}}">16</a>
 		    <a {%- if request.path == url_for('index', page=17) %} class="active" {% endif %} href="{{url_for('index', page=17)}}">17</a>
-		    <a href="#">&raquo;</a>
+		    <!-- <a href="#">&raquo;</a> -->
 		  </div>
 		</div>
 	{% endblock %}

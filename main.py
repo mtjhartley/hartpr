@@ -16,7 +16,11 @@ login_manager.login_view = "login"
 login_manager.login_message = "Let's ride!"
 
 # Our mock database.
-users = {'foo@bar.tld': {'pw': 'secret'}}
+user_list = db.queryMany("""SELECT username, password FROM users""")
+users = {}
+for user in user_list:
+	users[user[0]] = {'pw': user[1]}
+
 class User(flask_login.UserMixin):
 	pass
 

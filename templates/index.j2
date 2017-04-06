@@ -22,9 +22,9 @@
 					<td>
 
 					{% if player['color']%}
-						<img src="static/stock_icons/{{player['character']}}/{{player['character']}}-{{player['color']}}.png" style="margin-right: 8px" style="margin-bottom:10px">
+						<img src="/static/stock_icons/{{player['character']}}/{{player['character']}}-{{player['color']}}.png" style="margin-right: 8px" style="margin-bottom:10px">
 					{% else %}
-						<img src="static/stock_icons/{{player['character']}}/{{player['character']}}.png" style="margin-right: 8px" style="margin-top:10px">
+						<img src="/static/stock_icons/{{player['character']}}/{{player['character']}}.png" style="margin-right: 8px" style="margin-top:10px">
 					{% endif %}
 
 					<a href="{{url_for('player', player_id=player['id'])}}">{{player["display_name"]}}</a>
@@ -121,4 +121,28 @@
 			    }
 			});
 		</script>
+		<div class="center">
+		  <div class="pagination">
+		    <a href="#">&laquo;</a>
+		    <a {%- if request.path == url_for('index', page=0) %} class="active" {% endif %} href="{{url_for('index', page=0)}}">1</a>
+		    <a {%- if request.path == url_for('index', page=1) %} class="active" {% endif %} href="{{url_for('index', page=1)}}">2</a>
+		    <a {%- if request.path == url_for('index', page=2) %} class="active" {% endif %} href="{{url_for('index', page=2)}}">3</a>
+		    <a {%- if request.path == url_for('index', page=3) %} class="active" {% endif %} href="{{url_for('index', page=3)}}">4</a>
+		    <a {%- if request.path == url_for('index', page=4) %} class="active" {% endif %} href="{{url_for('index', page=4)}}">5</a>
+		    <a {%- if request.path == url_for('index', page=5) %} class="active" {% endif %} href="{{url_for('index', page=5)}}">6</a>
+		    <a {%- if request.path == url_for('index', page=6) %} class="active" {% endif %} href="{{url_for('index', page=6)}}">7</a>
+		    <a {%- if request.path == url_for('index', page=7) %} class="active" {% endif %} href="{{url_for('index', page=7)}}">8</a>
+		    <a {%- if request.path == url_for('index', page=8) %} class="active" {% endif %} href="{{url_for('index', page=8)}}">9</a>
+		    <a {%- if request.path == url_for('index', page=9) %} class="active" {% endif %} href="{{url_for('index', page=9)}}">10</a>
+		    <a {%- if request.path == url_for('index', page=10) %} class="active" {% endif %} href="{{url_for('index', page=10)}}">11</a>
+		    <a {%- if request.path == url_for('index', page=11) %} class="active" {% endif %} href="{{url_for('index', page=11)}}">12</a>
+		    <a {%- if request.path == url_for('index', page=12) %} class="active" {% endif %} href="{{url_for('index', page=12)}}">13</a>
+		    <a {%- if request.path == url_for('index', page=13) %} class="active" {% endif %} href="{{url_for('index', page=13)}}">14</a>
+		    <a {%- if request.path == url_for('index', page=14) %} class="active" {% endif %} href="{{url_for('index', page=14)}}">15</a>
+		    <a {%- if request.path == url_for('index', page=15) %} class="active" {% endif %} href="{{url_for('index', page=15)}}">16</a>
+		    <a {%- if request.path == url_for('index', page=16) %} class="active" {% endif %} href="{{url_for('index', page=16)}}">17</a>
+		    <a {%- if request.path == url_for('index', page=17) %} class="active" {% endif %} href="{{url_for('index', page=17)}}">18</a>
+		    <a href="#">&raquo;</a>
+		  </div>
+		</div>
 	{% endblock %}

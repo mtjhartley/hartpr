@@ -2,6 +2,10 @@ body {
     background-color: #FFFBFB;
 }
 
+#hartprlogo {
+    max-height: 95%;
+    padding-top: 5px;
+}
 #logo {
     text-decoration: none;
     text-decoration-color: none;
@@ -25,8 +29,7 @@ body {
 }
 
 #grad {
-  background: #DBDBDB;
-
+  background: #E8E8E8;
 }
 
 #title {
@@ -278,6 +281,30 @@ tr {
 
 .navbar-form .input-group>.form-control {
     margin-left: 10px;
+}
+
+.center {
+    text-align: center;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
 }
 /*
 List of shit to do: 

@@ -263,37 +263,52 @@ def getSkillDistribution(rows, player_id = -1):
 
 	return skillDistribution
 
-def newIndexDictionary():
+def newIndexDictionary(Page=None):
 	allPlayers = {}
 	allPlayers["players"] = []
+	graphRows = db.queryMany("""SELECT id, Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill, main_character, main_color
+				FROM players 
+				WHERE players.location = 'WA' 
+				ORDER BY weighted_trueskill desc;
+				""")
+	allPlayers["skillDistribution"] = getSkillDistribution(graphRows)
+
+	pageOffset = 0
+	if Page:
+		pageNumber = Page - 1
+		pageOffset = Page * 50
 	rows = db.queryMany("""SELECT id, Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill, main_character, main_color
 				FROM players 
 				WHERE players.location = 'WA' 
 				ORDER BY weighted_trueskill desc
-				""")
-	count = 0
-	for row in rows[:50]:
-		count += 1
+				LIMIT 50 OFFSET %s
+				""", (pageOffset,))
+
+	for row in rows:
+		pageOffset += 1
 		player_id = str(row[0])
 		playerinfo = createSetsDictionary(row[0])
-		playerinfo["rank"] = count 
+		playerinfo["rank"] = pageOffset 
 		playerinfo["character"] = "sandbag"
 		if row[2]:
 			playerinfo["character"] = row[2]
 		playerinfo["color"] = None
 		if row[3]:
-			playerinfo["color"] = row[3]
-	
+			playerinfo["color"] = row[3]	
 		allPlayers["players"].append(playerinfo)
-
-	allPlayers["skillDistribution"] = getSkillDistribution(rows)
 
 	return allPlayers
 
 @app.route("/")
-def index():
-	indexDictionary = newIndexDictionary()
+def rerouteSlash():
+	return redirect(url_for("index"))
+
+@app.route('/rankings/')
+@app.route('/rankings/<int:page>')
+def index(page=1):
+	indexDictionary = newIndexDictionary(Page=page)
 	indexDictionary["last_update"] = db.queryOne("""SELECT calendar_date FROM tournaments ORDER BY calendar_date DESC LIMIT 1;""")[0]
+
 	return render_template("index.j2", **indexDictionary).encode("utf-8")
 
 @app.route("/player/<int:player_id>")

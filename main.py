@@ -102,7 +102,7 @@ def admin_enter_tournament_submitted(message = None):
 			subdomain = None
 			if domain_words[-3].lower() != "www":
 				subdomain = domain_words[-3]
-			challongeapi.update_rankings_for_challonge_tournament(bracket_url, subdomain=subdomain)
+			#challongeapi.update_rankings_for_challonge_tournament(bracket_url, subdomain=subdomain)
 			
 
 

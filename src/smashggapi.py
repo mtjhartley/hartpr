@@ -57,7 +57,8 @@ def update_entrant_id_to_player_id_dict_and_player_database(tourneyName, eventNa
 		entrant_id = (bracket_player["entrant_id"])
 		tag = bracket_player["tag"].lower()
 		tag_tuple = (tag,)
-		rows = database.queryMany("SELECT * FROM players WHERE tag=%s", tag_tuple)
+		sgg_player_id = gamertag_to_sggplayerid_dict[bracket_player["tag"]]
+		rows = database.queryMany("SELECT * FROM players WHERE sgg_player_id=%s", (sgg_player_id,))
 		
 		if (len(rows) < 1):
 			tag = (bracket_player["tag"].lower())
@@ -69,7 +70,10 @@ def update_entrant_id_to_player_id_dict_and_player_database(tourneyName, eventNa
 			trueskill_sigma = trueskillapi.defaultRating.sigma 
 			sgg_player_id = gamertag_to_sggplayerid_dict[display_tag]
 			player_tuple = (tag, display_tag, fname, lname, location, trueskill_mu, trueskill_sigma, sgg_player_id)
-			cur = database.queryInsert("INSERT INTO players(tag, display_tag, fname, lname, location, trueskill_mu, trueskill_sigma, sgg_player_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;", player_tuple)
+			print player_tuple
+			cur = database.queryInsertNoRow("INSERT INTO players(tag, display_tag, fname, lname, location, trueskill_mu, trueskill_sigma, sgg_player_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;", player_tuple)
+			print "printing cur?"
+			print cur
 			id_of_new_row = cur.fetchone()[0]
 			entrant_id_to_player_id_dict[entrant_id] = id_of_new_row
 
@@ -166,6 +170,7 @@ def update_rankings_for_smashgg_tournament(tourneyName, bracketName):
 
 
 #update_rankings_for_smashgg_tournament("doubling-down-n3xt-l3v3l", "melee-singles")
+update_rankings_for_smashgg_tournament("reign-3", "melee-singles")
 
 
 

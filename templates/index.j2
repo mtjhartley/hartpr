@@ -128,7 +128,6 @@
 		    {% if current_page == final_page_number or current_page == final_page_number - 1%}
 		    	{% if current_page == final_page_number - 1 %}
 		    		<a href="{{url_for('index', page=1)}}"">&laquo;</a>
-			    	<a {%- if request.path == url_for('index', page=last_page_2-1) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2-1)}}">{{last_page_2-1}}</a>
 			    	<a {%- if request.path == url_for('index', page=last_page_2) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2)}}">{{last_page_2}}</a>
 			   		<a {%- if request.path == url_for('index', page=last_page) %} class="active" {% endif %} href="{{url_for('index', page=last_page)}}">{{last_page}}</a>
 			    	<a {%- if request.path == url_for('index', page=current_page) %} class="active" {% endif %} href="{{url_for('index', page=current_page)}}">{{current_page}}</a>
@@ -138,7 +137,6 @@
 
 		    	{% else %}
 			    	<a href="{{url_for('index', page=1)}}"">&laquo;</a>
-				    <a {%- if request.path == url_for('index', page=last_page_2-2) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2-2)}}">{{last_page_2-2}}</a>
 			    	<a {%- if request.path == url_for('index', page=last_page_2-1) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2-1)}}">{{last_page_2-1}}</a>
 			    	<a {%- if request.path == url_for('index', page=last_page_2) %} class="active" {% endif %} href="{{url_for('index', page=last_page_2)}}">{{last_page_2}}</a>
 			   		<a {%- if request.path == url_for('index', page=last_page) %} class="active" {% endif %} href="{{url_for('index', page=last_page)}}">{{last_page}}</a>
@@ -153,7 +151,6 @@
 				    <a {%- if request.path == url_for('index', page=last_page) %} class="active" {% endif %} href="{{url_for('index', page=last_page)}}">{{last_page}}</a>
 				    <a {%- if request.path == url_for('index', page=current_page) %} class="active" {% endif %} href="{{url_for('index', page=current_page)}}">{{current_page}}</a>
 				    <a {%- if request.path == url_for('index', page=next_page) %} class="active" {% endif %} href="{{url_for('index', page=next_page)}}">{{next_page}}</a>
-				    <a {%- if request.path == url_for('index', page=next_page_2) %} class="active" {% endif %} href="{{url_for('index', page=next_page_2)}}">{{next_page_2}}</a>
 				    <a href="{{url_for('index', page=final_page_number)}}">&raquo;</a>
 				{% endif %}
 				{% if current_page == 1 %}
@@ -162,7 +159,6 @@
 					<a {%- if request.path == url_for('index', page=current_page+1) %} class="active" {% endif %} href="{{url_for('index', page=current_page+1)}}">{{current_page+1}}</a>
 					<a {%- if request.path == url_for('index', page=current_page+2) %} class="active" {% endif %} href="{{url_for('index', page=current_page+2)}}">{{current_page+2}}</a>
 					<a {%- if request.path == url_for('index', page=current_page+3) %} class="active" {% endif %} href="{{url_for('index', page=current_page+3)}}">{{current_page+3}}</a>
-					<a {%- if request.path == url_for('index', page=current_page+4) %} class="active" {% endif %} href="{{url_for('index', page=current_page+4)}}">{{current_page+4}}</a>
 					<a href="{{url_for('index', page=final_page_number)}}">&raquo;</a>
 				{% endif %}
 				{% if current_page == 2 %}
@@ -171,7 +167,6 @@
 					<a {%- if request.path == url_for('index', page=current_page) %} class="active" {% endif %} href="{{url_for('index', page=current_page)}}">{{current_page}}</a>
 					<a {%- if request.path == url_for('index', page=current_page+1) %} class="active" {% endif %} href="{{url_for('index', page=current_page+1)}}">{{current_page+1}}</a>
 					<a {%- if request.path == url_for('index', page=current_page+2) %} class="active" {% endif %} href="{{url_for('index', page=current_page+2)}}">{{current_page+2}}</a>
-					<a {%- if request.path == url_for('index', page=current_page+3) %} class="active" {% endif %} href="{{url_for('index', page=current_page+3)}}">{{current_page+3}}</a>
 					<a href="{{url_for('index', page=final_page_number)}}">&raquo;</a>
 				{% endif %}
 			{% endif %}

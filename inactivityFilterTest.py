@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, request, s
 import flask_login
 import src.database as db
 from time import time
-import datetime
+from datetime import datetime, timedelta
 import os
 
 """
@@ -17,7 +17,7 @@ Then I have a list of active players...
 Query db one last time with this list?
 
 """
-
+'''
 start2 = datetime.datetime.now()
 unfilteredPlayerRows = db.queryMany("""SELECT *,  Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill
 				FROM players 
@@ -70,13 +70,76 @@ print "first query", lap1 - start2 #instant
 print "second query batch", lap2-lap1 #7 seconds lol
 print len(activePlayers)
 print len(unfilteredPlayerRows)
-
+'''
 #idea...we can get the last active date of every player
 #add this to a column in the player db
 #display them based on this...1 query per player!
 #when we add a new torurnament, everyone who went gets updated to the tourney date
 #this way we dont have to query activity when we query everyone
 #cons - can only use most recent (1) tournament as an activity requirement.
+
+mitchQuery = db.queryMany("""SELECT players.id,
+							COUNT(DISTINCT(tournaments.id)) AS tournaments_attended,
+							players.tag,
+							Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill FROM players
+						inner join sets as losing_sets on players.id = losing_sets.loser_id
+						inner join tournaments on losing_sets.db_tournament_id = tournaments.id
+						WHERE (players.location = 'WA'
+							AND tournaments.calendar_date > '2017-03-09')
+						GROUP BY players.id
+						ORDER BY weighted_trueskill desc;
+						""")
+
+
+print mitchQuery[0][1]
+print type(mitchQuery[0][1])
+print type(int(mitchQuery[0][1]))
+
+
+
+print len(mitchQuery)
+for row in mitchQuery:
+	if int(row[1]) < 2:
+		print row
+		mitchQuery.remove(row)
+
+print len(mitchQuery)
+count = 0
+for row in mitchQuery:
+	count += 1
+	print count, row
+
+date30DaysAgo = str((datetime.now() - timedelta(days=60)).date())
+print date30DaysAgo
+print type(date30DaysAgo)
+finalQuery = db.queryMany("""SELECT ALL_T.pid, COUNT(DISTINCT(ALL_T.tid)), ALL_T.tag, ALL_T.weighted_trueskill FROM
+							(
+						        SELECT players.id AS pid, tournaments.id AS tid, tournaments.calendar_date, location, tag, 
+						              Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill FROM players
+						        LEFT join sets as losing_sets on players.id = losing_sets.winner_id
+						        inner join tournaments on losing_sets.db_tournament_id = tournaments.id
+						    UNION
+						        SELECT players.id AS pid, tournaments.id AS tid, tournaments.calendar_date, location, tag, 
+						              Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill FROM players
+						        LEFT join sets as winning_sets on players.id = winning_sets.winner_id
+						        inner join tournaments on winning_sets.db_tournament_id = tournaments.id) AS ALL_T
+							where ALL_T.calendar_date > %s AND ALL_T.location = 'WA'
+							group by ALL_T.pid, ALL_T.tag, ALL_T.weighted_trueskill
+							order by ALL_T.weighted_trueskill desc
+							""", (date30DaysAgo,))
+print
+
+print
+
+print
+
+count = 0
+for row in finalQuery:
+	if int(row[1]) > 0:
+		count += 1
+		print count, row
+
+
 
 
 

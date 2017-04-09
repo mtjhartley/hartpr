@@ -11,3 +11,4 @@ todo.txt
 update_smashgg_elephant_db.py
 update_challonge_elephant_db.py
 src/test_database.py
+merge_players_elephant_db.py

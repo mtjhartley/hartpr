@@ -289,8 +289,6 @@ def newIndexDictionary(Page=None):
 							order by ALL_T.weighted_trueskill desc
 							""", (date30DaysAgo,))
 
-	print graphRows
-
 	allPlayers["skillDistribution"] = getSkillDistribution(graphRows)
 	allPlayers["player_count"] = float(len(graphRows))
 

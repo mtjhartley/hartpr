@@ -213,6 +213,27 @@ def merge_players(real_tag, list_of_incorrect_tags):
 		)
 	recalculate_all_trueskill_for_all_sets_in_db()
 
+def merge_players_by_ids(real_id, incorrect_id):
+
+	queryInsertNoRow("""
+		UPDATE sets
+		SET winner_id={}
+		WHERE winner_id={}
+		""".format(real_id, incorrect_id))
+
+	queryInsertNoRow("""
+		UPDATE sets
+		SET loser_id={}
+		WHERE loser_id={}
+		""".format(real_id, incorrect_id))
+
+	queryInsertNoRow("""
+		DELETE FROM players
+		WHERE id={}
+		""".format(incorrect_id,)
+		)
+	recalculate_all_trueskill_for_all_sets_in_db()
+
 
 
 '''

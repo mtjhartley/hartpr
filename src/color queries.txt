@@ -199,8 +199,8 @@ SET main_character = 'falco'
 WHERE tag = 'leahboo';
 
 UPDATE players
-SET main_character = "sheik", main_color ="black"
-WHERE tag ='carrigan'
+SET main_character = 'sheik', main_color ='black'
+WHERE tag ='carrigan';
 
 UPDATE players
 SET main_character = 'fox', main_color = 'green'
@@ -239,12 +239,49 @@ SET main_character = 'peach', main_color = 'blue'
 WHERE tag = 'bdj';
 
 UPDATE players 
-SET main_character = 'marth', main_color = 'blue'
+SET main_character = 'marth'
 WHERE tag = 'magesoren';
 
 UPDATE players 
 SET alternate_character = 'falco'
 WHERE tag = 'magesoren';
+
+UPDATE players
+SET main_character = 'luigi', main_color ='red'
+WHERE tag ='luigi ka-master';
+
+UPDATE players
+SET main_character = 'falcon', main_color ='pink'
+WHERE tag ='faddiaddi';
+
+UPDATE players
+SET main_character = 'fox', 
+WHERE tag ='joeco';
+
+UPDATE players
+SET main_character = 'sheik', 
+WHERE tag ='calvin';
+
+UPDATE players
+SET main_character = 'marth', 
+WHERE tag ='jeremy';
+
+UPDATE players
+SET main_character = 'peach', 
+WHERE tag ='rice';
+
+UPDATE players
+SET main_character = 'jigglypuff', main_color ='red'
+WHERE tag ='lookalike';
+
+UPDATE players
+SET main_character = 'falcon', main_color ='blue'
+WHERE tag ='dru_p';
+
+
+
+
+
 
 
 

@@ -284,7 +284,36 @@ WHERE tag = 'ehdehwhen';
 
 UPDATE players
 SET alternate_character = 'marth', alternate_color = 'black'
-WHERE tag = 'ebay'
+WHERE tag = 'ebay';
+
+UPDATE players
+SET main_character = 'peach'
+WHERE tag = 'kuroshi';
+
+UPDATE players
+SET main_character = 'fox', main_color = 'green'
+WHERE tag = 'tripledeckerpbj';
+
+UPDATE players
+SET main_character = 'peach'
+WHERE id = '110';
+
+UPDATE players
+SET main_character = 'falco', main_color = 'green'
+WHERE tag = 'mcdonski';
+
+UPDATE players 
+SET main_character = 'falcon', main_color = 'red'
+WHERE tag = 'soggy';
+
+UPDATE players
+SET main_character = 'marth', main_color = 'white'
+WHERE tag = 'sputo';
+
+UPDATE players
+SET main_character = 'falco', main_color = 'blue'
+WHERE tag = 'loaf';
+
 
 
 

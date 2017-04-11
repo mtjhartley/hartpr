@@ -2,13 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for, request, s
 import flask_login
 import src.database as db
 from time import time
+from random import randint
 import datetime
 import os
 import src.challongeapi as challongeapi
 #import src.smashggapi as smashggapi
 
 app = Flask(__name__)
-app.secret_key = "secret"
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
@@ -152,7 +152,7 @@ def createSetsDictionary(player_id, ForIndex = True):
 			winner_score = row[12]
 			loser_score = row[13]
 			player_set_win_count += 1
-			if winner_score and winner_score < 4:
+			if winner_score and winner_score < 4 and loser_score < 3 and loser_score > -1 or loser_score == 0:
 				player_game_win_count += winner_score
 				player_game_lose_count += loser_score
 		else:
@@ -162,13 +162,15 @@ def createSetsDictionary(player_id, ForIndex = True):
 			loser_score = row[12]
 			winner_score = row[13]
 			player_set_lose_count += 1
-			if loser_score and loser_score < 4 and loser_score > -1: #people putting like 500 lol
+			if loser_score < 4 and loser_score > -1 or loser_score == 0: #people putting like 500 lol
 				player_game_lose_count += loser_score
 				
 
 		calendar_date = row[2]
 		tourney_id = row[1]
 		score_string = str(winner_score) + '-' + str(loser_score)
+		if (winner_score == None and loser_score == None): #would use Not but the way 0 is interpreted...
+			score_string = "NR"
 		set_tuple = (tournament_name, opponent_tag, result, calendar_date, score_string, tourney_id, opponent_id)
 
 		if not ForIndex:
@@ -269,8 +271,10 @@ def getSkillDistribution(rows, player_id = -1):
 
 	return skillDistribution
 
+
+activityRequirementDate = str((datetime.datetime.now() - datetime.timedelta(days=60)).date())
+
 def newIndexDictionary(Page=None):
-	date30DaysAgo = str((datetime.datetime.now() - datetime.timedelta(days=60)).date())
 	allPlayers = {}
 	allPlayers["players"] = []
 	graphRows = db.queryMany("""SELECT ALL_T.pid, ALL_T.weighted_trueskill, ALL_T.main_character, ALL_T.main_color, COUNT(DISTINCT(ALL_T.tid)) FROM
@@ -287,7 +291,7 @@ def newIndexDictionary(Page=None):
 							where ALL_T.calendar_date > %s AND ALL_T.location = 'WA'
 							group by ALL_T.pid, ALL_T.weighted_trueskill, ALL_T.main_character, ALL_T.main_color
 							order by ALL_T.weighted_trueskill desc
-							""", (date30DaysAgo,))
+							""", (activityRequirementDate,))
 
 	allPlayers["skillDistribution"] = getSkillDistribution(graphRows)
 	allPlayers["player_count"] = float(len(graphRows))
@@ -336,11 +340,21 @@ def index(page=1):
 
 @app.route("/player/<int:player_id>")
 def player(player_id):
-	rows = db.queryMany("""SELECT id, Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill
-			FROM players 
-			WHERE players.location = 'WA' 
-			ORDER BY weighted_trueskill desc
-			""")
+	rows = db.queryMany("""SELECT ALL_T.pid, ALL_T.weighted_trueskill, ALL_T.main_character, ALL_T.main_color, COUNT(DISTINCT(ALL_T.tid)) FROM
+							(
+						        SELECT players.id AS pid, tournaments.id AS tid, tournaments.calendar_date, location, tag, main_character, main_color,
+						              Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill FROM players
+						        LEFT join sets as losing_sets on players.id = losing_sets.winner_id
+						        inner join tournaments on losing_sets.db_tournament_id = tournaments.id
+						    UNION
+						        SELECT players.id AS pid, tournaments.id AS tid, tournaments.calendar_date, location, tag, main_character, main_color,
+						              Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill FROM players
+						        LEFT join sets as winning_sets on players.id = winning_sets.winner_id
+						        inner join tournaments on winning_sets.db_tournament_id = tournaments.id) AS ALL_T
+							where ALL_T.calendar_date > %s AND ALL_T.location = 'WA'
+							group by ALL_T.pid, ALL_T.weighted_trueskill, ALL_T.main_character, ALL_T.main_color
+							order by ALL_T.weighted_trueskill desc
+							""", (activityRequirementDate,))
 	setsDictionary = createSetsDictionary(player_id, ForIndex=False)
 	setsDictionary["skillDistribution"] = getSkillDistribution(rows, player_id)
 	return render_template("player.j2", **setsDictionary).encode("utf-8")
@@ -439,7 +453,7 @@ def about():
 #when typing them in a search?
 @app.route("/search/")
 def search():
-	player = request.args.get('Player').lower()
+	player = request.args.get('Player').lower().strip()
 	playerquery = db.queryOne("""SELECT id FROM players WHERE tag=%s""",((player,)))
 	if playerquery:
 		player_id = playerquery[0]
@@ -452,6 +466,9 @@ def search():
 def searchh2h(message=None):
 	playersDictionary = {}
 	playersDictionary["players"] = []
+	randomInt = randint(0,1)
+	playersDictionary["randomInt"] = randomInt
+
 	rows = db.queryMany("""SELECT display_tag FROM players""")
 	for row in rows:
 		playersDictionary["players"].append(row[0].decode('utf-8', 'ignore'))
@@ -462,8 +479,8 @@ def searchh2h(message=None):
 def returnh2h():
 	if request.method == 'GET':
 
-		p1 = request.args.get('Player1').lower()
-		p2 = request.args.get('Player2').lower() 
+		p1 = request.args.get('Player1').lower().strip()
+		p2 = request.args.get('Player2').lower().strip()
 		p1query = db.queryOne("""SELECT id FROM players WHERE tag=%s""",((p1,)))
 		p2query = db.queryOne("""SELECT id FROM players WHERE tag=%s""",((p2,)))
 		if p1query and p2query:

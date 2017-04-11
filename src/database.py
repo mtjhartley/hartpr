@@ -181,6 +181,7 @@ def update_rankings_for_challonge_tournament(tourneyURL, subdomain=None):
 
 def recalculate_all_trueskill_for_all_sets_in_db():
 	db_ids = queryMany("SELECT id FROM players")
+	print "all ids obtained"
 	trueskillDictionary = dict(map(lambda db_id: (db_id[0], [trueskillapi.defaultRating.mu, trueskillapi.defaultRating.sigma]), db_ids))
 	sets = queryMany("SELECT winner_id, loser_id, winner_score, loser_score FROM sets")
 	trueskillapi.update_trueskills(sets, trueskillDictionary)
@@ -220,18 +221,22 @@ def merge_players_by_ids(real_id, incorrect_id):
 		SET winner_id={}
 		WHERE winner_id={}
 		""".format(real_id, incorrect_id))
+	print "all won sets updated to reflect correct tag"
 
 	queryInsertNoRow("""
 		UPDATE sets
 		SET loser_id={}
 		WHERE loser_id={}
 		""".format(real_id, incorrect_id))
+	print "all lost sets updated to reflect correct tag"
+
 
 	queryInsertNoRow("""
 		DELETE FROM players
 		WHERE id={}
 		""".format(incorrect_id,)
 		)
+	print "meme tag deleted"
 	recalculate_all_trueskill_for_all_sets_in_db()
 
 

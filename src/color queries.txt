@@ -255,19 +255,19 @@ SET main_character = 'falcon', main_color ='pink'
 WHERE tag ='faddiaddi';
 
 UPDATE players
-SET main_character = 'fox', 
+SET main_character = 'fox'
 WHERE tag ='joeco';
 
 UPDATE players
-SET main_character = 'sheik', 
+SET main_character = 'sheik'
 WHERE tag ='calvin';
 
 UPDATE players
-SET main_character = 'marth', 
+SET main_character = 'marth'
 WHERE tag ='jeremy';
 
 UPDATE players
-SET main_character = 'peach', 
+SET main_character = 'peach'
 WHERE tag ='rice';
 
 UPDATE players
@@ -278,6 +278,13 @@ UPDATE players
 SET main_character = 'falcon', main_color ='blue'
 WHERE tag ='dru_p';
 
+UPDATE players
+SET main_character = 'marth', main_color = 'white'
+WHERE tag = 'ehdehwhen';
+
+UPDATE players
+SET alternate_character = 'marth', alternate_color = 'black'
+WHERE tag = 'ebay'
 
 
 

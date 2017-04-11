@@ -25,7 +25,11 @@
 				</datalist>
 
 
-			<input type = "submit" value = "Let's Ride!"><br>
+			{% if randomInt == 0 %}
+				<input type = "submit" value= "Swag me out!" id = "submit_button"><br>
+			{% else %}
+				<input type = "submit" value= "Let's ride!" id = "submit_button"><br>
+			{% endif %}
 		</form>
 		</div>
 		</div>

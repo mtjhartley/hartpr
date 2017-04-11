@@ -583,8 +583,8 @@ def submit_form_view():
 		tag = row[2]
 		contact = row[3]
 		issue_type = row[4]
-		info = row[5]
-		date = row[6]
+		info = row[5].decode("ascii", ignore)
+		date = row[6].decode("ascii", ignore)
 		change_tuple = (id_number, name, tag, contact, issue_type, info, date)
 		submittedChangesDictionary["changes"].append(change_tuple)
 

@@ -152,7 +152,7 @@ def createSetsDictionary(player_id, ForIndex = True):
 			winner_score = row[12]
 			loser_score = row[13]
 			player_set_win_count += 1
-			if winner_score and winner_score < 4 and loser_score < 3 and loser_score > -1 or loser_score == 0:
+			if winner_score and winner_score < 4 and loser_score < 3 and loser_score > -1:
 				player_game_win_count += winner_score
 				player_game_lose_count += loser_score
 		else:
@@ -162,7 +162,9 @@ def createSetsDictionary(player_id, ForIndex = True):
 			loser_score = row[12]
 			winner_score = row[13]
 			player_set_lose_count += 1
-			if loser_score < 4 and loser_score > -1 or loser_score == 0: #people putting like 500 lol
+			if loser_score < 3 and loser_score > -1 and loser_score != None: #people putting like 500 lol
+			#these are opposite due to the nature of the database set schema
+				player_game_win_count += winner_score
 				player_game_lose_count += loser_score
 				
 

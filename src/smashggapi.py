@@ -169,9 +169,6 @@ def update_rankings_for_smashgg_tournament(tourneyName, bracketName):
 		print "Tournament already in the database."
 
 
-#update_rankings_for_smashgg_tournament("doubling-down-n3xt-l3v3l", "melee-singles")
-update_rankings_for_smashgg_tournament("reign-3", "melee-singles")
-
 
 
 

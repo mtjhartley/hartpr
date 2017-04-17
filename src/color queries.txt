@@ -315,7 +315,13 @@ SET main_character = 'falco', main_color = 'blue'
 WHERE tag = 'loaf';
 
 
+UPDATE players
+SET main_character = 'pikachu', main_color = 'blue'
+WHERE tag = 'spiritgun';
 
+UPDATE players 
+SET main_character = 'gw'
+WHERE tag = 'zeddy';
 
 
 

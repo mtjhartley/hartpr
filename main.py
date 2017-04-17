@@ -273,10 +273,12 @@ def getSkillDistribution(rows, player_id = -1):
 
 	return skillDistribution
 
-
-activityRequirementDate = str((datetime.datetime.now() - datetime.timedelta(days=60)).date())
+def getActivityRequirementDate():
+	activityRequirementDate = str((datetime.datetime.now() - datetime.timedelta(days=60)).date())
+	return activityRequirementDate
 
 def newIndexDictionary(Page=None):
+	activityRequirementDate = getActivityRequirementDate()
 	allPlayers = {}
 	allPlayers["players"] = []
 	graphRows = db.queryMany("""SELECT ALL_T.pid, ALL_T.weighted_trueskill, ALL_T.main_character, ALL_T.main_color, COUNT(DISTINCT(ALL_T.tid)) FROM
@@ -342,6 +344,7 @@ def index(page=1):
 
 @app.route("/player/<int:player_id>")
 def player(player_id):
+	activityRequirementDate = getActivityRequirementDate()
 	rows = db.queryMany("""SELECT ALL_T.pid, ALL_T.weighted_trueskill, ALL_T.main_character, ALL_T.main_color, COUNT(DISTINCT(ALL_T.tid)) FROM
 							(
 						        SELECT players.id AS pid, tournaments.id AS tid, tournaments.calendar_date, location, tag, main_character, main_color,

@@ -236,7 +236,7 @@ def update_entrant_id_to_player_id_dict_and_player_database(list_of_player_tags,
 				entrant_id = player_dict["id"]
 
 				rows = database.queryMany("SELECT * FROM players WHERE tag=%s", (updated_database_tag[0],))
-				print "printing rows for update enrnat id func"
+				print "printing rows for update entrant id func"
 				print rows
 
 
@@ -365,5 +365,6 @@ def update_rankings_for_challonge_tournament(tourneyURL, subdomain=None):
 
 #update_rankings_for_challonge_tournament("tuk324")
 #update_rankings_for_challonge_tournament("ESSM10M")
+#update_rankings_for_challonge_tournament("tuk930")
 
 

@@ -240,7 +240,6 @@ def merge_players_by_ids(real_id, incorrect_id):
 	recalculate_all_trueskill_for_all_sets_in_db()
 
 
-
 '''
 select tournaments.name, tournaments.url, winners.tag, losers.tag, sets.* from sets
 inner join players AS winners on sets.winner_id = winners.id

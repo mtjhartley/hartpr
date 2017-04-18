@@ -323,6 +323,11 @@ UPDATE players
 SET main_character = 'gw'
 WHERE tag = 'zeddy';
 
+UPDATE players
+SET main_character = 'fox', main_color = 'green'
+WHERE tag = 'smirked';
+
+
 
 
 

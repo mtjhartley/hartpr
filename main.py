@@ -202,11 +202,9 @@ def createSetsDictionary(player_id, ForIndex = True):
 	setsDictionary["main_color"] = None
 	setsDictionary["alternate_character"] = None
 	setsDictionary["alternate_color"] = None
-	if row[8] != None:
+	if row[8]:
 		setsDictionary["twitter"] = row[8]
-		print setsDictionary["twitter"]
 	else:
-		print row[8]
 		setsDictionary["twitter"] = None
 	if row[4]:
 		setsDictionary["main_character"] = row[4]
@@ -351,19 +349,19 @@ def index(page=1):
 @app.route("/player/<int:player_id>")
 def player(player_id):
 	activityRequirementDate = getActivityRequirementDate()
-	rows = db.queryMany("""SELECT ALL_T.pid, ALL_T.weighted_trueskill, ALL_T.main_character, ALL_T.main_color, COUNT(DISTINCT(ALL_T.tid)) FROM
+	rows = db.queryMany("""SELECT ALL_T.pid, ALL_T.weighted_trueskill, ALL_T.main_character, ALL_T.main_color, ALL_T.twitter, COUNT(DISTINCT(ALL_T.tid)) FROM
 							(
-						        SELECT players.id AS pid, tournaments.id AS tid, tournaments.calendar_date, location, tag, main_character, main_color,
+						        SELECT players.id AS pid, tournaments.id AS tid, tournaments.calendar_date, location, tag, main_character, main_color, twitter,
 						              Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill FROM players
 						        LEFT join sets as losing_sets on players.id = losing_sets.winner_id
 						        inner join tournaments on losing_sets.db_tournament_id = tournaments.id
 						    UNION
-						        SELECT players.id AS pid, tournaments.id AS tid, tournaments.calendar_date, location, tag, main_character, main_color,
+						        SELECT players.id AS pid, tournaments.id AS tid, tournaments.calendar_date, location, tag, main_character, main_color, twitter,
 						              Round((trueskill_mu-3*trueskill_sigma),3) AS weighted_trueskill FROM players
 						        LEFT join sets as winning_sets on players.id = winning_sets.winner_id
 						        inner join tournaments on winning_sets.db_tournament_id = tournaments.id) AS ALL_T
 							where ALL_T.calendar_date > %s AND ALL_T.location = 'WA'
-							group by ALL_T.pid, ALL_T.weighted_trueskill, ALL_T.main_character, ALL_T.main_color
+							group by ALL_T.pid, ALL_T.weighted_trueskill, ALL_T.main_character, ALL_T.main_color, ALL_T.twitter
 							order by ALL_T.weighted_trueskill desc
 							""", (activityRequirementDate,))
 	setsDictionary = createSetsDictionary(player_id, ForIndex=False)

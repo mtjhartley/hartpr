@@ -8,26 +8,57 @@
               {% if alternate_character %}
                 {% if alternate_color %}
                   {% if main_color %}
-                <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}-{{main_color}}.png" style="padding-left: 5px; margin-bottom:8px"> <img src="/static/stock_icons/{{alternate_character}}/{{alternate_character}}-{{alternate_color}}.png" style="padding-left: 3px; margin-bottom:8px"> </h2>
+                <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}-{{main_color}}.png" style="padding-left: 5px;"> <img src="/static/stock_icons/{{alternate_character}}/{{alternate_character}}-{{alternate_color}}.png" style="padding-left: 3px;"> 
+
+            {% if twitter %}
+              <a href="https://www.twitter.com/{{twitter}}"><img id ="twitter" src="/static/twitter_blue.png" height="32px" width="32px"></a>
+            {% else %}
+            {% endif %}
+
+                </h2>
                   {% else %}
-                <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}.png" style="padding-left: 5px; margin-bottom:8px"> <img src="/static/stock_icons/{{alternate_character}}/{{alternate_character}}-{{alternate_color}}.png" style="padding-left: 5px; margin-bottom:8px"> </h2>
+                <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}.png" style="padding-left: 5px;"> <img src="/static/stock_icons/{{alternate_character}}/{{alternate_character}}-{{alternate_color}}.png" style="padding-left: 5px;">
+
+            {% if twitter %}
+              <a href="https://www.twitter.com/{{twitter}}"><img id ="twitter" src="/static/twitter_blue.png" height="32px" width="32px"></a>
+            {% else %}
+            {% endif %} 
+            </h2>
                   {% endif %}
                 {% else %}
                   {% if main_color %}
-                    <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}-{{main_color}}.png" style="padding-left: 5px; margin-bottom:8px"> <img src="/static/stock_icons/{{alternate_character}}/{{alternate_character}}.png" style="padding-left: 3px; margin-bottom:8px"> </h2>
+                    <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}-{{main_color}}.png" style="padding-left: 3px;"> <img src="/static/stock_icons/{{alternate_character}}/{{alternate_character}}.png" style="padding-left: 3px;"> 
+                    {% if twitter %}
+                     <a href="https://www.twitter.com/{{twitter}}"><img id ="twitter" src="/static/twitter_blue.png" height="32px" width="32px"></a>
+                    {% else %}
+                  {% endif %}</h2>
                   {% else %}
-                    <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}.png" style="padding-left: 5px; margin-bottom:8px"> <img src="/static/stock_icons/{{alternate_character}}/{{alternate_character}}.png" style="padding-left: 3px; margin-bottom:8px"> </h2>
+                    <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}.png" style="padding-left: 5px;"> <img src="/static/stock_icons/{{alternate_character}}/{{alternate_character}}.png" style="padding-left: 3px;"> 
+                    {% if twitter %}
+                    <a href="https://www.twitter.com/{{twitter}}"><img id ="twitter" src="/static/twitter_blue.png" height="32px" width="32px"></a>
+                    {% else %}
+                    {% endif %}
+                    </h2>
                 {% endif %} 
               {% endif %}
               {% else %}
                 {% if main_color %}
-                  <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}-{{main_color}}.png" style="margin-right: 8px; padding-left: 5px; margin-bottom:8px">
+                  <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}-{{main_color}}.png" style="padding-left: 5px;"> 
+                {% if twitter %}
+                <a href="https://www.twitter.com/{{twitter}}"><img id ="twitter" src="/static/twitter_blue.png" height="32px" width="32px"></a>
+                {% else %}
+                {% endif %}
                   </h2>
                 {% else %}
-                <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}.png" style="margin-right: 8px" style="margin-top:10px"></h2>
+                <h2> {{display_name}} <img src="/static/stock_icons/{{main_character}}/{{main_character}}.png" style="padding-left: 5px">
+
+              {% if twitter %}
+              <a href="https://www.twitter.com/{{twitter}}"><img id ="twitter" src="/static/twitter_blue.png" height="32px" width="32px"></a>
+            {% else %}
+            {% endif %}
+            </h2>
                 {% endif %}
               {% endif %}
-
             <h3> Trueskill: {{trueskill_thousand_test}} </h3>
             <h4> Unadjusted: {{mu}} (+/- {{3 * sigma}}) </h4>
 

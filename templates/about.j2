@@ -26,7 +26,7 @@
 	<h3>The Numbers</h3>
 	<p class = "left_align"> The numbers on your 
 	<a href="{{url_for('player',player_id=200)}}">player page</a>
-	indicate your skill relative to the rest of the community. Your unadjusted skill is comprised of two key indicators; MU and SIGMA. MU increases and decreases as you win and lose sets, and represents an average approximation of skill. SIGMA starts off large and decreases as you play more sets, and represents how uncertain we are that your skill lies around said approximation.</p>
+	indicate your skill relative to the rest of the community. Your unadjusted skill is comprised of two key indicators; MU and SIGMA. MU increases and decreases as you win and lose sets, and represents an average approximation of skill. SIGMA starts off large and decreases as you play more sets, and represents how uncertain we are that your skill lies around said approximation. Game counts are archived when possible and displayed on player pages, but only <strong>set</strong> wins and losses are used in the calculation.</p>
 
 	<p class = "left_align">
 	The Trueskill number takes your MU and SIGMA and uses Microsoft's suggested ranking formula of: Trueskill = MU - (3 * SIGMA). You can read more about Trueskill <a href="http://www.moserware.com/2010/03/computing-your-skill.html">here.</a></p>

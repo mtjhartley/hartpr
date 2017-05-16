@@ -328,7 +328,60 @@ SET main_character = 'fox', main_color = 'green'
 WHERE tag = 'smirked';
 
 
+UPDATE players
+SET main_character = 'falco', main_color = 'red'
+WHERE tag = 'help';
 
+UPDATE players
+SET main_character = 'peach', main_color = 'white'
+WHERE tag = 'rice';
+
+
+UPDATE players
+SET main_character = 'sheik', main_color = 'black'
+WHERE tag = 'myth';
+
+UPDATE players
+SET main_character = 'falco', main_color = 'red'
+WHERE tag = 'gsp';
+
+UPDATE players
+SET main_character = 'fox'
+WHERE tag = 'pem';
+
+
+
+UPDATE players
+SET alternate_character = 'sheik', alternate_color =  'red'
+WHERE tag = 'dz';
+
+query = database.queryInsertNoRow("""UPDATE players
+SET main_character = 'iceclimbers'
+WHERE tag = 'sox';""")
+
+query = database.queryInsertNoRow("""UPDATE players
+SET main_character = 'peach', main_color = 'green'
+WHERE tag = 'digital';""")
+
+query = database.queryInsertNoRow("""UPDATE players
+SET main_character = 'peach', main_color = 'white'
+WHERE tag = 'hyo';""")
+
+query = database.queryInsertNoRow("""UPDATE players
+SET main_character = 'peach', main_color = 'blue'
+WHERE tag = 'xcal';""")
+
+query = database.queryInsertNoRow("""UPDATE players
+SET main_character = 'falco', main_color = 'blue'
+WHERE tag = 'hyo';""")
+
+query = database.queryInsertNoRow("""UPDATE players
+SET alternate_character = 'fox', alternate_color =  'green'
+WHERE tag = 'hyo';""")
+
+query = database.queryInsertNoRow("""UPDATE players
+SET main_character = 'marth'
+WHERE tag = 'saxon';""")
 
 
 

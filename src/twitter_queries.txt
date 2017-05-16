@@ -27,3 +27,12 @@ query = database.queryInsertNoRow("""UPDATE players SET twitter='Dru_P_' WHERE t
 query = database.queryInsertNoRow("""UPDATE players SET twitter='smirkedfox' WHERE tag = 'smirked'""")
 query = database.queryInsertNoRow("""UPDATE players SET twitter='CamWinger' WHERE tag = 'billy'""")
 query = database.queryInsertNoRow("""UPDATE players SET twitter='jmlee337' WHERE tag = 'jeremy'""")
+query = database.queryInsertNoRow("""UPDATE players SET twitter='_Salbatierra_' WHERE tag = 'pocket sand'""")
+query = database.queryInsertNoRow("""UPDATE players SET twitter='JLH3LP' WHERE tag = 'help'""")
+query = database.queryInsertNoRow("""UPDATE players SET twitter='UW_rice' WHERE tag = 'rice'""")
+query = database.queryInsertNoRow("""UPDATE players SET twitter='tripledeckerpbj' WHERE tag = 'tripledeckerpbj'""")
+query = database.queryInsertNoRow("""UPDATE players SET twitter='My_name_is_myth' WHERE tag = 'myth'""")
+
+query = database.queryInsertNoRow("""UPDATE players SET twitter='SaltySethSSBM' WHERE tag = 'salty seth'""")
+query = database.queryInsertNoRow("""UPDATE players SET twitter='ViciousVish' WHERE tag = 'vish'""")
+

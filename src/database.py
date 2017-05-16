@@ -184,8 +184,11 @@ def recalculate_all_trueskill_for_all_sets_in_db():
 	print "all ids obtained"
 	trueskillDictionary = dict(map(lambda db_id: (db_id[0], [trueskillapi.defaultRating.mu, trueskillapi.defaultRating.sigma]), db_ids))
 	sets = queryMany("SELECT winner_id, loser_id, winner_score, loser_score FROM sets")
+	print "got the sets"
 	trueskillapi.update_trueskills(sets, trueskillDictionary)
+	print "updating trueskills"
 	update_player_database_with_new_trueskill(trueskillDictionary)
+	print "updating database"
 	print "Trueskill recalculated!"
 
 def merge_players(real_tag, list_of_incorrect_tags):

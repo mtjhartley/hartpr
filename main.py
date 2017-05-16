@@ -278,7 +278,7 @@ def getSkillDistribution(rows, player_id = -1):
 	return skillDistribution
 
 def getActivityRequirementDate():
-	activityRequirementDate = str((datetime.datetime.now() - datetime.timedelta(days=60)).date())
+	activityRequirementDate = str((datetime.datetime.now() - datetime.timedelta(days=30)).date())
 	return activityRequirementDate
 
 def newIndexDictionary(Page=None):

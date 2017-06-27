@@ -256,8 +256,8 @@ def getSkillDistribution(rows, player_id = -1):
 	print "len(counts)/2"
 	print len(counts)/2
 	print "sorted filter lambda count: count > 0, counts"
-	print sorted(filter(lambda count: count > 0, counts))
-	half = sorted(filter(lambda count: count > 0, counts))[len(counts)/2]
+	final_list = sorted(filter(lambda count: count > 0, counts))
+	half = final_list[len(final_list)/2]
 
 	skillDistribution = []
 	for i in range(len(counts)):

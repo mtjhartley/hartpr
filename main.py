@@ -246,8 +246,15 @@ def getSkillDistribution(rows, player_id = -1):
 			playerCountIndex = index
 		counts[index] += 1
 
-
+	print "printing counts"
+	print counts
+	print "printing len counts"
+	print len(counts)
 	maxCount = max(counts)
+	print "printing maxCount"
+	print maxCount
+	print "len(counts)/2"
+	print len(counts)/2
 	half = sorted(filter(lambda count: count > 0, counts))[len(counts)/2]
 
 	skillDistribution = []

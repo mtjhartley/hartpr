@@ -1,0 +1,9 @@
+hartpr separate players function
+
+insert into players -> new player, same tag, different name, unknown sgg id
+
+pass this function an array of tournament ids (either hartpr or direct challonge/sgg bracket ids)
+and the old players id, new players id 
+
+it will go through and for the sets won and lost, replace the old winner/loser id with the new
+player id 

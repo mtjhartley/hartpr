@@ -383,6 +383,10 @@ query = database.queryInsertNoRow("""UPDATE players
 SET main_character = 'marth'
 WHERE tag = 'saxon';""")
 
+query = database.queryInsertNoRow("""UPDATE players
+SET main_character = 'peach', main_color = 'green'
+WHERE tag = 'alphazealot';""")
+
 
 
 

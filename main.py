@@ -489,6 +489,9 @@ def searchh2h(message=None):
 
 	rows = db.queryMany("""SELECT display_tag FROM players""")
 	for row in rows:
+		print playersDictionary
+		print playersDictionary["players"]
+		print len(playersDictionary["players"])
 		playersDictionary["players"].append(row[0].decode('utf-8', 'ignore'))
 		playersDictionary["players"].sort(key = lambda s: s[0].lower())
 	return render_template("searchh2h.j2", **playersDictionary).encode("utf-8")

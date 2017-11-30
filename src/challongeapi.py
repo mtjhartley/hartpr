@@ -132,18 +132,21 @@ def fuzzy_string_match_ratio(tourney_tag_list, db_tag_list):
 	for tourney_tag in tourney_tag_list:
 		similar_tags = []
 		for database_tag in db_tag_list:
-			similar_ratio = fuzz.ratio(tourney_tag.decode('utf-8', 'ignore'), database_tag.decode('utf-8', 'ignore'))
-			float_len_db_tag_minus = float(len(database_tag)) - 1
-			float_len_db_tag = float(len(database_tag))
-			threshold_ratio = float_len_db_tag_minus / float_len_db_tag * 100 - 1
-
-			if re.sub(' ', '', tourney_tag.decode('utf-8', 'ignore')) == re.sub(' ', '', database_tag.decode('utf-8', 'ignore')):
-				similar_tags.append((database_tag, similar_ratio, "tag ratio", "100%"))
-			elif similar_ratio > threshold_ratio and tourney_tag != database_tag and threshold_ratio != -1.0:
-				similar_tags.append((database_tag, similar_ratio, "threshold ratio", threshold_ratio))
+			if len(database_tag) == 0:
+				db_tag_list.remove(database_tag)
 			else:
-				if similar_ratio > 90 and tourney_tag != database_tag:
-					similar_tags.append((database_tag, similar_ratio, "threshold ratio", similar_ratio)) 
+				similar_ratio = fuzz.ratio(tourney_tag.decode('utf-8', 'ignore'), database_tag.decode('utf-8', 'ignore'))
+				float_len_db_tag_minus = float(len(database_tag)) - 1
+				float_len_db_tag = float(len(database_tag))
+				threshold_ratio = float_len_db_tag_minus / float_len_db_tag * 100 - 1
+
+				if re.sub(' ', '', tourney_tag.decode('utf-8', 'ignore')) == re.sub(' ', '', database_tag.decode('utf-8', 'ignore')):
+					similar_tags.append((database_tag, similar_ratio, "tag ratio", "100%"))
+				elif similar_ratio > threshold_ratio and tourney_tag != database_tag and threshold_ratio != -1.0:
+					similar_tags.append((database_tag, similar_ratio, "threshold ratio", threshold_ratio))
+				else:
+					if similar_ratio > 90 and tourney_tag != database_tag:
+						similar_tags.append((database_tag, similar_ratio, "threshold ratio", similar_ratio)) 
 
 		dictionary_of_string_matches[tourney_tag] = sorted(similar_tags, key = itemgetter(1), reverse = True)
 	return dictionary_of_string_matches
@@ -151,7 +154,7 @@ def fuzzy_string_match_ratio(tourney_tag_list, db_tag_list):
 def confirm_or_deny_existing_player(tourney_tag_list, dictionary_of_string_matches):
 	new_tourney_tag_list = []
 	for player in tourney_tag_list:
-		if dictionary_of_string_matches[player] and dictionary_of_string_matches[player][0][3] == "100%":
+		if dictionary_of_string_matches[player] and dictionary_of_string_matches[player][0][3] == "100%" and dictionary_of_string_matches[player][0][0] != "":
 			print "Player tag in tournament:", player
 			print "The database found a tag match: " + '"' + str(dictionary_of_string_matches[player][0][0]) + '"' + " with a fuzz.ratio of " + str(dictionary_of_string_matches[player][0][1])
 			print "Adding the player to the list with complete certainty!"

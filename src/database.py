@@ -240,7 +240,7 @@ def merge_players_by_ids(real_id, incorrect_id):
 		""".format(incorrect_id,)
 		)
 	print "meme tag deleted"
-	# recalculate_all_trueskill_for_all_sets_in_db()
+	#recalculate_all_trueskill_for_all_sets_in_db()
 
 
 '''

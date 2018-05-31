@@ -109,7 +109,7 @@ for row in mitchQuery:
 	count += 1
 	print count, row
 
-date30DaysAgo = str((datetime.now() - timedelta(days=60)).date())
+date30DaysAgo = str((datetime.now() - timedelta(days=180)).date())
 print date30DaysAgo
 print type(date30DaysAgo)
 finalQuery = db.queryMany("""SELECT ALL_T.pid, COUNT(DISTINCT(ALL_T.tid)), ALL_T.tag, ALL_T.weighted_trueskill FROM

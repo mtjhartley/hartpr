@@ -1,5 +1,5 @@
 click==6.7
-Flask==0.12
+Flask==1.0
 Flask-Login==0.4.0
 fuzzywuzzy==0.15.0
 iso8601==0.1.11

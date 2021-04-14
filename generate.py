@@ -155,7 +155,6 @@ for player in final_dict:
 		wf = open("html/{}.html".format(final_dict[player]["id"]), "w+")
 		wf.write(Template(open("templates/player.j2", "r").read()).render(final_dict[player]).encode("utf-8"))
 	except UnicodeEncodeError:
-		print "fuck you faggot"
 		print "i'm a fucking legend"
 
 tournamentWebPageDictionary = {}
